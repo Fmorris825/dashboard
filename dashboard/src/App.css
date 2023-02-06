@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Lilita+One&display=swap");
+
+.logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.header {
+  display: flex;
+}
+
+h1 {
+  color: azure;
+  font-family: "Lilita One", sans-serif;
+  font-size: 45px;
+}
+
+.brand {
+  margin-right: 15px;
+}
