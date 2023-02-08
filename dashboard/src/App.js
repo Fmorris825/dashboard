@@ -1,4 +1,13 @@
-import { useState } from "react";
+import { db } from "./config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+
 import "antd/dist/reset.css";
 import "./App.css";
 import React from "react";
@@ -15,7 +24,7 @@ import {
 } from "@ant-design/icons";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
-import Item from "antd/es/list/Item";
+import TasksPage from "./Pages/TasksPage/TasksPage";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children, type) {
@@ -136,7 +145,7 @@ function App() {
         <Routes>
           <Route path="/" element={<div>Dashboard</div>}></Route>
           <Route path="/projects" element={<div>Projects</div>}></Route>
-          <Route path="/tasks" element={<div>Tasks</div>}></Route>
+          <Route path="/tasks" element={<TasksPage />}></Route>
           <Route path="/planning" element={<div>Planning</div>}></Route>
           <Route path="/backlog" element={<div>Backlog</div>}></Route>
           <Route path="/resources" element={<div>Resources</div>}></Route>
