@@ -1,12 +1,12 @@
-import { db } from "./config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+// import { db } from "./config";
+// import {
+//   collection,
+//   getDocs,
+//   addDoc,
+//   updateDoc,
+//   doc,
+//   deleteDoc,
+// } from "firebase/firestore";
 
 import "antd/dist/reset.css";
 import "./App.css";
@@ -25,6 +25,7 @@ import {
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import TasksPage from "./Pages/TasksPage/TasksPage";
+import PlanningPage from "./Pages/PlanningPage/PlanningPage";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children, type) {
@@ -85,7 +86,7 @@ function App() {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["2"]}
+          defaultSelectedKeys={["1"]}
           items={items1}
         />
       </Header>
@@ -106,6 +107,7 @@ function App() {
             style={{
               height: "100%",
               borderRight: 0,
+              // color: "royalblue",
             }}
             items={navItems}
           />
@@ -146,7 +148,7 @@ function App() {
           <Route path="/" element={<div>Dashboard</div>}></Route>
           <Route path="/projects" element={<div>Projects</div>}></Route>
           <Route path="/tasks" element={<TasksPage />}></Route>
-          <Route path="/planning" element={<div>Planning</div>}></Route>
+          <Route path="/planning" element={<PlanningPage />}></Route>
           <Route path="/backlog" element={<div>Backlog</div>}></Route>
           <Route path="/resources" element={<div>Resources</div>}></Route>
           <Route path="/links" element={<div>Fred's Links</div>}></Route>

@@ -26,3 +26,13 @@ h1 {
 .brand {
   margin-right: 15px;
 }
+
+button {
+  border: none;
+  color: royalblue;
+}
+
+button:hover {
+  color: blue;
+  cursor: pointer;
+}

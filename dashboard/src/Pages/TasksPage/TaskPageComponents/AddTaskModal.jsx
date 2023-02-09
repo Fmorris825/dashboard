@@ -1,42 +1,58 @@
 import { Button, Modal } from "antd";
-import { useState } from "react";
-import { Checkbox, Form, Input } from "antd";
-import { addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { Form, Input } from "antd";
+import { addDoc, getDocs } from "firebase/firestore";
 
-const AddTaskModal = ({ tasksCollectionRef }) => {
+const AddTaskModal = ({ tasksCollectionRef, getTasks }) => {
   const [modal, setModal] = useState(false);
-
   const [task, setTask] = useState("");
   const [date, setDate] = useState("");
+  const [timestamp, setTimestamp] = useState(0);
   const [description, setDescriiption] = useState("");
 
-  const createProperty = async () => {
+  const createTask = async () => {
     await addDoc(tasksCollectionRef, {
       task: task,
       description: description,
+      timestamp: Date.now(),
       date: date,
     });
+    getTasks();
   };
 
+  useEffect(() => {
+    getNewDate();
+  }, []);
+
+  function getNewDate() {
+    let today = new Date(),
+      date =
+        today.getDate() +
+        "/" +
+        (today.getMonth() + 1) +
+        "/" +
+        today.getFullYear();
+    setDate(date);
+  }
+
   function handleSubmit() {
-    createProperty();
+    createTask();
     console.log("Success");
-    setDate("");
     setDescriiption("");
     setTask("");
     setModal(false);
   }
   function handleCancel() {
-    setDate("");
     setDescriiption("");
     setTask("");
     console.log("Cancel");
     setModal(false);
   }
 
+  console.log(date);
   return (
     <>
-      <Button onClick={() => setModal(true)}>Add New Task</Button>
+      <button onClick={() => setModal(true)}>Add New Task</button>
       <Modal
         title="New Task"
         style={{
@@ -53,24 +69,18 @@ const AddTaskModal = ({ tasksCollectionRef }) => {
           setTask={setTask}
           setDate={setDate}
           setDescriiption={setDescriiption}
+          setTimestamp={setTimestamp}
           date={date}
           task={task}
           description={description}
+          timestamp={timestamp}
         />
       </Modal>
     </>
   );
 };
 
-function AddTaskForm({
-  setDate,
-  setDescriiption,
-  setTask,
-
-  date,
-  task,
-  description,
-}) {
+function AddTaskForm({ setDescriiption, setTask, task, description }) {
   return (
     <Form
       name="basic"
@@ -94,13 +104,6 @@ function AddTaskForm({
           setDescriiption(event.target.value);
         }}
         value={description}
-      />
-      <Input
-        placeholder="Date"
-        onChange={(event) => {
-          setDate(event.target.value);
-        }}
-        value={date}
       />
     </Form>
   );

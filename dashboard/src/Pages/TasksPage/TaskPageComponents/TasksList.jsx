@@ -1,13 +1,12 @@
-import { Avatar, Button, List, Skeleton } from "antd";
-import { useEffect, useState } from "react";
+import { Avatar, List, Skeleton } from "antd";
+import { nextPowerOfTwo } from "three/src/math/MathUtils";
 import portrait from "../../../portrait.jpg";
-const count = 3;
+import DeleteTaskButton from "./DeleteTaskButton";
 
-const TasksList = ({ tasks }) => {
-  const [initLoading, setInitLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [list, setList] = useState([]);
+const TasksList = ({ tasks, getTasks }) => {
+  const sorted = tasks.sort(function (a, b) {
+    return b.timestamp.valueOf() - a.timestamp.valueOf();
+  });
 
   return (
     <List
@@ -17,8 +16,8 @@ const TasksList = ({ tasks }) => {
       renderItem={(task) => (
         <List.Item
           actions={[
-            <a key="list-loadmore-edit">edit</a>,
-            <a key="list-loadmore-more">more</a>,
+            <button key="list-loadmore-more">edit</button>,
+            <DeleteTaskButton task={task} getTasks={getTasks} />,
           ]}
         >
           <Skeleton avatar title={false} loading={task.loading}>
@@ -27,7 +26,7 @@ const TasksList = ({ tasks }) => {
               title={<h5>{task.task}</h5>}
               description={task.description}
             />
-            <div>{task.date}</div>
+            <div className="date">{task.date}</div>
           </Skeleton>
         </List.Item>
       )}
