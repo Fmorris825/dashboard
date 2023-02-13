@@ -89,18 +89,6 @@ function App() {
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
 
-  const getTasks = async () => {
-    const data = await getDocs(tasksCollectionRef);
-    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log("Hit");
-  };
-
-  function filterCompleted() {
-    const completedTasks = tasks.filter((task) => {
-      return task.complete === true;
-    });
-    return setCompletedList(completedTasks);
-  }
   useEffect(() => {
     getTasks();
   }, []);
@@ -110,13 +98,28 @@ function App() {
     filteredToDo();
   }, [tasks]);
 
+  const getTasks = async () => {
+    const data = await getDocs(tasksCollectionRef);
+    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    console.log("Hit");
+    filterCompleted();
+    filteredToDo();
+  };
+
+  function filterCompleted() {
+    const completedTasks = tasks.filter((task) => {
+      return task.complete === true;
+    });
+    return setCompletedList(completedTasks);
+  }
+
   function filteredToDo() {
     const toDoTasks = tasks.filter((task) => {
       return task.complete === false;
     });
     return setDoList(toDoTasks);
   }
-
+  console.log(toDoList, tasks);
   return (
     <Layout>
       <Header className="header">
@@ -195,6 +198,7 @@ function App() {
                       getTasks={getTasks}
                       completedList={completedList}
                       toDoList={toDoList}
+                      filteredToDo={filteredToDo}
                     />
                   }
                 ></Route>

@@ -16,27 +16,25 @@ import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
 
 export const TaskContext = createContext();
 
-const TasksPage = ({ tasks, getTasks, completedList, toDoList }) => {
-  //   const [tasks, setTasks] = useState([]);
-  //   const tasksCollectionRef = collection(db, "Tasks");
-
-  //   const getTasks = async () => {
-  //     const data = await getDocs(tasksCollectionRef);
-  //     setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //     console.log("Hit");
-  //   };
-
-  //   useEffect(() => {
-  //     getTasks();
-  //   }, []);
-
+const TasksPage = ({
+  tasks,
+  getTasks,
+  completedList,
+  toDoList,
+  tasksCollectionRef,
+  filteredToDo,
+}) => {
+  useEffect(() => {
+    getTasks();
+  }, []);
   return (
     <div className="taskListContainer">
       <div className="list">
-        {/* <AddTaskModal
+        <AddTaskModal
           tasksCollectionRef={tasksCollectionRef}
           getTasks={getTasks}
-        /> */}
+          filteredToDo={filteredToDo}
+        />
 
         <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
       </div>

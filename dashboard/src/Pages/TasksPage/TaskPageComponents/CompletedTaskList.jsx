@@ -2,6 +2,7 @@ import { Avatar, List, Skeleton } from "antd";
 import { useEffect, useState, createContext } from "react";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
+import EditTaskButton from "./EditTaskButton";
 
 const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
   //   const [completedList, setCompletedList] = useState({});
@@ -25,7 +26,8 @@ const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
       renderItem={(task) => (
         <List.Item
           actions={[
-            <button key="list-loadmore-more">edit</button>,
+            <EditTaskButton selectedTask={task} getTasks={getTasks} />,
+
             <DeleteTaskButton task={task} getTasks={getTasks} />,
           ]}
         >

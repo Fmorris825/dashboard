@@ -2,6 +2,7 @@ import { Avatar, List, Skeleton } from "antd";
 import { useEffect, useState } from "react";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
+import EditTaskButton from "./EditTaskButton";
 
 const TasksList = ({ tasks, getTasks, toDoList }) => {
   const sorted = toDoList.sort(function (a, b) {
@@ -25,7 +26,7 @@ const TasksList = ({ tasks, getTasks, toDoList }) => {
       renderItem={(task) => (
         <List.Item
           actions={[
-            <button key="list-loadmore-more">edit</button>,
+            <EditTaskButton selectedTask={task} getTasks={getTasks} />,
             <DeleteTaskButton task={task} getTasks={getTasks} />,
           ]}
         >
