@@ -108,7 +108,7 @@ function App() {
   useEffect(() => {
     filterCompleted();
     filteredToDo();
-  }, []);
+  }, [tasks]);
 
   function filteredToDo() {
     const toDoTasks = tasks.filter((task) => {
