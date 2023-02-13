@@ -3,21 +3,9 @@ import { useEffect, useState, createContext } from "react";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
 import EditTaskButton from "./EditTaskButton";
+import UndoTask from "./UndoTask";
 
 const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
-  //   const [completedList, setCompletedList] = useState({});
-
-  //   function filterCompleted() {
-  //     const completedTasks = tasks.filter((task) => {
-  //       return task.complete === true;
-  //     });
-  //     return setCompletedList(completedTasks);
-  //   }
-
-  //   useEffect(() => {
-  //     filterCompleted();
-  //   }, [tasks]);
-
   return (
     <List
       className="taskList"
@@ -27,8 +15,8 @@ const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
         <List.Item
           actions={[
             <EditTaskButton selectedTask={task} getTasks={getTasks} />,
-
             <DeleteTaskButton task={task} getTasks={getTasks} />,
+            <UndoTask selectedTask={task} getTasks={getTasks} />,
           ]}
         >
           <Skeleton avatar title={false} loading={task.loading}>
