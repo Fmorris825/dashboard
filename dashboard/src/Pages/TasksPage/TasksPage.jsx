@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import "./TasksPage.css";
-
+import { useState, useEffect, createContext } from "react";
 import { db } from "../../config";
 import {
   collection,
@@ -12,20 +11,23 @@ import {
 } from "firebase/firestore";
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
+import DashBoardPage from "../DashBoardPage/DashBoardPage";
 
-const TasksPage = () => {
-  const [tasks, setTasks] = useState([]);
-  const tasksCollectionRef = collection(db, "Tasks");
+export const TaskContext = createContext();
 
-  const getTasks = async () => {
-    const data = await getDocs(tasksCollectionRef);
-    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log("Hit");
-  };
+const TasksPage = ({ tasks, getTasks, tasksCollectionRef }) => {
+  //   const [tasks, setTasks] = useState([]);
+  //   const tasksCollectionRef = collection(db, "Tasks");
 
-  useEffect(() => {
-    getTasks();
-  }, []);
+  //   const getTasks = async () => {
+  //     const data = await getDocs(tasksCollectionRef);
+  //     setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //     console.log("Hit");
+  //   };
+
+  //   useEffect(() => {
+  //     getTasks();
+  //   }, []);
 
   return (
     <div>
@@ -33,7 +35,11 @@ const TasksPage = () => {
         tasksCollectionRef={tasksCollectionRef}
         getTasks={getTasks}
       />
-      <TasksList tasks={tasks} getTasks={getTasks} />
+      <TaskContext.Provider value={tasks}>
+        <TasksList tasks={tasks} getTasks={getTasks} />
+        {/* <DashBoardPage tasks={tasks} /> */}
+      </TaskContext.Provider>
+
       {/* {tasks.map((task) => {
         return (
           <div>

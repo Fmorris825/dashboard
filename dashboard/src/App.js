@@ -1,17 +1,17 @@
-// import { db } from "./config";
-// import {
-//   collection,
-//   getDocs,
-//   addDoc,
-//   updateDoc,
-//   doc,
-//   deleteDoc,
-// } from "firebase/firestore";
-
 import "antd/dist/reset.css";
 import "./App.css";
 import React from "react";
+import { useState, useEffect, createContext } from "react";
+import { db } from "./config";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  collection,
+  getDocs,
+  //   addDoc,
+  //   updateDoc,
+  //   doc,
+  //   deleteDoc,
+} from "firebase/firestore";
 
 import {
   MailOutlined,
@@ -26,7 +26,11 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import TasksPage from "./Pages/TasksPage/TasksPage";
 import PlanningPage from "./Pages/PlanningPage/PlanningPage";
+import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
+import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
 const { Header, Content, Sider } = Layout;
+
+// export const TaskContext = createContext();
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -44,7 +48,8 @@ const items1 = ["1", "2", "3"].map((key) => ({
 }));
 
 const navItems = [
-  getItem("Dashboard", "sub1", <MailOutlined />, [
+  getItem("HomeBase", "sub1", <MailOutlined />, [
+    getItem("Dashboard", "/dashboard", <RobotOutlined />),
     getItem("Tasks", "/tasks", <RobotOutlined />),
     getItem("Planning", "/planning", <CalendarOutlined />),
     getItem("Projects", "/projects", <FireOutlined />),
@@ -73,12 +78,25 @@ const navItems = [
 //   }
 // );
 
-console.log(navItems);
 function App() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const navigate = useNavigate();
+
+  const [tasks, setTasks] = useState([]);
+  const tasksCollectionRef = collection(db, "Tasks");
+
+  const getTasks = async () => {
+    const data = await getDocs(tasksCollectionRef);
+    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    console.log("Hit");
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   return (
     <Layout>
       <Header className="header">
@@ -134,28 +152,78 @@ function App() {
               background: colorBgContainer,
             }}
           >
-            <Contents />
+            <div>
+              <Routes>
+                <Route path="/" element={<div>Dashboard</div>}></Route>
+                <Route
+                  path="/dashboard"
+                  element={<DashBoardPage tasks={tasks} />}
+                ></Route>
+                <Route path="/projects" element={<ProjectsPage />}></Route>
+                <Route
+                  path="/tasks"
+                  element={
+                    <TasksPage
+                      tasks={tasks}
+                      tasksCollectionRef={tasksCollectionRef}
+                      getTasks={getTasks}
+                    />
+                  }
+                ></Route>
+                <Route path="/planning" element={<PlanningPage />}></Route>
+                <Route path="/backlog" element={<div>Backlog</div>}></Route>
+                <Route path="/resources" element={<div>Resources</div>}></Route>
+                <Route path="/links" element={<div>Fred's Links</div>}></Route>
+              </Routes>
+            </div>
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 
-  function Contents() {
-    return (
-      <div>
-        <Routes>
-          <Route path="/" element={<div>Dashboard</div>}></Route>
-          <Route path="/projects" element={<div>Projects</div>}></Route>
-          <Route path="/tasks" element={<TasksPage />}></Route>
-          <Route path="/planning" element={<PlanningPage />}></Route>
-          <Route path="/backlog" element={<div>Backlog</div>}></Route>
-          <Route path="/resources" element={<div>Resources</div>}></Route>
-          <Route path="/links" element={<div>Fred's Links</div>}></Route>
-        </Routes>
-      </div>
-    );
-  }
+  // function Contents() {
+
+  //   const [tasks, setTasks] = useState([]);
+  //   const tasksCollectionRef = collection(db, "Tasks");
+
+  //   const TasksPage = () => {
+  //     const [tasks, setTasks] = useState([]);
+  //     const tasksCollectionRef = collection(db, "Tasks");
+
+  //     const getTasks = async () => {
+  //       const data = await getDocs(tasksCollectionRef);
+  //       setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //       console.log("Hit");
+  //     };
+
+  //     useEffect(() => {
+  //       getTasks();
+  //     }, []);
+
+  //   return (
+  //     <div>
+  //       <Routes>
+  //         <Route path="/" element={<div>Dashboard</div>}></Route>
+  //         <Route path="/dashboard" element={<DashBoardPage tasks={tasks} />}></Route>
+  //         <Route path="/projects" element={<ProjectsPage />}></Route>
+  //         <Route
+  //           path="/tasks"
+  //           element={
+  //             <TasksPage
+  //               tasks={tasks}
+  //               tasksCollectionRef={tasksCollectionRef}
+  //               getTasks={getTasks}
+  //             />
+  //           }
+  //         ></Route>
+  //         <Route path="/planning" element={<PlanningPage />}></Route>
+  //         <Route path="/backlog" element={<div>Backlog</div>}></Route>
+  //         <Route path="/resources" element={<div>Resources</div>}></Route>
+  //         <Route path="/links" element={<div>Fred's Links</div>}></Route>
+  //       </Routes>
+  //     </div>
+  //   );
 }
 
 export default App;

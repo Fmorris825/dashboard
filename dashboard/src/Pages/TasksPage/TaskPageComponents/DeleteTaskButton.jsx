@@ -14,7 +14,6 @@ const DeleteTaskButton = ({ task, getTasks }) => {
     await deleteDoc(userDoc);
     getTasks();
   };
-  console.log(task);
   return (
     <button
       key="list-loadmore-edit"
