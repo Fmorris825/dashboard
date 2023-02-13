@@ -30,6 +30,7 @@ h1 {
 button {
   border: none;
   color: royalblue;
+  background-color: white;
 }
 
 button:hover {
