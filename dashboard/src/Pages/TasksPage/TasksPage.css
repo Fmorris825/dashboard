@@ -1,7 +1,11 @@
-.taskList {
+.list {
   width: 50%;
 }
 
 .date {
   margin: 0px 5px;
+}
+
+.taskListContainer {
+  display: flex;
 }

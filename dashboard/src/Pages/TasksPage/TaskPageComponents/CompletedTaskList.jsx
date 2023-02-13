@@ -1,31 +1,34 @@
 import { Avatar, List, Skeleton } from "antd";
 import { useEffect, useState } from "react";
+import { nextPowerOfTwo } from "three/src/math/MathUtils";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
+import TasksList from "./TasksList";
 
-const TasksList = ({ tasks, getTasks }) => {
-  const sorted = tasks.sort(function (a, b) {
-    return b.timestamp.valueOf() - a.timestamp.valueOf();
-  });
+const CompletedTaskList = ({ tasks, getTasks }) => {
+  const [completedList, setCompletedList] = useState({});
 
-  const [toDoList, setDoList] = useState({});
-
-  function filteredToDo() {
-    const toDoTasks = tasks.filter((task) => {
-      return task.complete === false;
+  function filterCompleted() {
+    const completedTasks = tasks.filter((task) => {
+      return task.complete === true;
     });
-    return setDoList(toDoTasks);
+    return setCompletedList(completedTasks);
   }
 
   useEffect(() => {
-    filteredToDo();
+    filterCompleted();
   }, [tasks]);
 
+  //   const sorted = tasks.sort(function (a, b) {
+  //     return b.timestamp.valueOf() - a.timestamp.valueOf();
+  //   });
+
+  console.log(completedList);
   return (
     <List
       className="taskList"
       itemLayout="horizontal"
-      dataSource={toDoList}
+      dataSource={completedList}
       renderItem={(task) => (
         <List.Item
           actions={[
@@ -47,4 +50,4 @@ const TasksList = ({ tasks, getTasks }) => {
   );
 };
 
-export default TasksList;
+export default CompletedTaskList;

@@ -12,6 +12,7 @@ import {
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
 import DashBoardPage from "../DashBoardPage/DashBoardPage";
+import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
 
 export const TaskContext = createContext();
 
@@ -30,15 +31,18 @@ const TasksPage = ({ tasks, getTasks, tasksCollectionRef }) => {
   //   }, []);
 
   return (
-    <div>
-      <AddTaskModal
-        tasksCollectionRef={tasksCollectionRef}
-        getTasks={getTasks}
-      />
-      <TaskContext.Provider value={tasks}>
+    <div className="taskListContainer">
+      <div className="list">
+        {/* <AddTaskModal
+          tasksCollectionRef={tasksCollectionRef}
+          getTasks={getTasks}
+        /> */}
+
         <TasksList tasks={tasks} getTasks={getTasks} />
-        {/* <DashBoardPage tasks={tasks} /> */}
-      </TaskContext.Provider>
+      </div>
+      <div className="list">
+        <CompletedTaskList tasks={tasks} getTasks={getTasks} />
+      </div>
 
       {/* {tasks.map((task) => {
         return (
