@@ -2,16 +2,16 @@ import { Progress, Space } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { TaskContext } from "../TasksPage/TasksPage";
-// import(TaskContext);
 
-const DashBoardPage = ({ tasks }) => {
-  const [progress, setProgress] = useState(tasks.length);
-
+const DashBoardPage = ({ tasks, toDoList, completedList }) => {
+  const [completed, setCompleted] = useState(completedList.length);
+  const completedPercentage = (completed / tasks.length) * 100;
+  const roundCompleted = completedPercentage.toFixed(0);
+  const [toDo, setToDo] = useState(toDoList.length);
   return (
     <>
       <Progress
-        percent={progress}
+        percent={roundCompleted}
         strokeColor={{
           "0%": "#108ee9",
           "100%": "#87d068",

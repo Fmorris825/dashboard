@@ -3,23 +3,19 @@ import { useEffect, useState } from "react";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
 
-const TasksList = ({ tasks, getTasks }) => {
-  const sorted = tasks.sort(function (a, b) {
+const TasksList = ({ tasks, getTasks, toDoList }) => {
+  const sorted = toDoList.sort(function (a, b) {
     return b.timestamp.valueOf() - a.timestamp.valueOf();
   });
 
-  const [toDoList, setDoList] = useState({});
+  // const [toDoList, setDoList] = useState({});
 
-  function filteredToDo() {
-    const toDoTasks = tasks.filter((task) => {
-      return task.complete === false;
-    });
-    return setDoList(toDoTasks);
-  }
-
-  useEffect(() => {
-    filteredToDo();
-  }, [tasks]);
+  // function filteredToDo() {
+  //   const toDoTasks = tasks.filter((task) => {
+  //     return task.complete === false;
+  //   });
+  //   return setDoList(toDoTasks);
+  // }
 
   return (
     <List

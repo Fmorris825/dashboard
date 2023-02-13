@@ -86,6 +86,8 @@ function App() {
 
   const [tasks, setTasks] = useState([]);
   const tasksCollectionRef = collection(db, "Tasks");
+  const [completedList, setCompletedList] = useState({});
+  const [toDoList, setDoList] = useState({});
 
   const getTasks = async () => {
     const data = await getDocs(tasksCollectionRef);
@@ -93,9 +95,27 @@ function App() {
     console.log("Hit");
   };
 
+  function filterCompleted() {
+    const completedTasks = tasks.filter((task) => {
+      return task.complete === true;
+    });
+    return setCompletedList(completedTasks);
+  }
   useEffect(() => {
     getTasks();
   }, []);
+
+  useEffect(() => {
+    filterCompleted();
+    filteredToDo();
+  }, []);
+
+  function filteredToDo() {
+    const toDoTasks = tasks.filter((task) => {
+      return task.complete === false;
+    });
+    return setDoList(toDoTasks);
+  }
 
   return (
     <Layout>
@@ -157,7 +177,13 @@ function App() {
                 <Route path="/" element={<div>Dashboard</div>}></Route>
                 <Route
                   path="/dashboard"
-                  element={<DashBoardPage tasks={tasks} />}
+                  element={
+                    <DashBoardPage
+                      tasks={tasks}
+                      toDoList={toDoList}
+                      completedList={completedList}
+                    />
+                  }
                 ></Route>
                 <Route path="/projects" element={<ProjectsPage />}></Route>
                 <Route
@@ -167,6 +193,8 @@ function App() {
                       tasks={tasks}
                       tasksCollectionRef={tasksCollectionRef}
                       getTasks={getTasks}
+                      completedList={completedList}
+                      toDoList={toDoList}
                     />
                   }
                 ></Route>

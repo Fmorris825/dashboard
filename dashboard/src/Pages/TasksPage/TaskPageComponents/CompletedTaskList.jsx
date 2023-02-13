@@ -1,29 +1,22 @@
 import { Avatar, List, Skeleton } from "antd";
-import { useEffect, useState } from "react";
-import { nextPowerOfTwo } from "three/src/math/MathUtils";
+import { useEffect, useState, createContext } from "react";
 import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
-import TasksList from "./TasksList";
 
-const CompletedTaskList = ({ tasks, getTasks }) => {
-  const [completedList, setCompletedList] = useState({});
+const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
+  //   const [completedList, setCompletedList] = useState({});
 
-  function filterCompleted() {
-    const completedTasks = tasks.filter((task) => {
-      return task.complete === true;
-    });
-    return setCompletedList(completedTasks);
-  }
+  //   function filterCompleted() {
+  //     const completedTasks = tasks.filter((task) => {
+  //       return task.complete === true;
+  //     });
+  //     return setCompletedList(completedTasks);
+  //   }
 
-  useEffect(() => {
-    filterCompleted();
-  }, [tasks]);
+  //   useEffect(() => {
+  //     filterCompleted();
+  //   }, [tasks]);
 
-  //   const sorted = tasks.sort(function (a, b) {
-  //     return b.timestamp.valueOf() - a.timestamp.valueOf();
-  //   });
-
-  console.log(completedList);
   return (
     <List
       className="taskList"

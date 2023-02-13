@@ -16,7 +16,7 @@ import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
 
 export const TaskContext = createContext();
 
-const TasksPage = ({ tasks, getTasks, tasksCollectionRef }) => {
+const TasksPage = ({ tasks, getTasks, completedList, toDoList }) => {
   //   const [tasks, setTasks] = useState([]);
   //   const tasksCollectionRef = collection(db, "Tasks");
 
@@ -38,10 +38,14 @@ const TasksPage = ({ tasks, getTasks, tasksCollectionRef }) => {
           getTasks={getTasks}
         /> */}
 
-        <TasksList tasks={tasks} getTasks={getTasks} />
+        <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
       </div>
       <div className="list">
-        <CompletedTaskList tasks={tasks} getTasks={getTasks} />
+        <CompletedTaskList
+          tasks={tasks}
+          getTasks={getTasks}
+          completedList={completedList}
+        />
       </div>
 
       {/* {tasks.map((task) => {
