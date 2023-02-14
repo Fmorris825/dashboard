@@ -1,18 +1,17 @@
 import { Progress, Space } from "antd";
 import { useEffect, useState } from "react";
 import WeatherModule from "./DashBoardPageComponents/WeatherModule";
+import "./DashBoardPage.css";
 import axios from "axios";
 
 const DashBoardPage = ({ tasks, toDoList, completedList }) => {
-  const [completed, setCompleted] = useState(completedList.length);
-  const completedPercentage = (completed / tasks.length) * 100;
+  const completedPercentage = (completedList.length / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
   const [toDo, setToDo] = useState(toDoList.length);
   const [yahooWeather, setYahooWeather] = useState(false);
 
   useEffect(() => {
     getWeather();
-    console.log(yahooWeather);
   }, []);
 
   async function getWeather() {
