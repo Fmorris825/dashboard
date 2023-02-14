@@ -101,7 +101,7 @@ function App() {
     });
     return setDoList(toDoTasks);
   }
-  console.log(toDoList, tasks);
+
   return (
     <Layout>
       <Header className="header">

@@ -11,15 +11,6 @@ const TasksList = ({ tasks, getTasks, toDoList }) => {
     return b.timestamp.valueOf() - a.timestamp.valueOf();
   });
 
-  // const [toDoList, setDoList] = useState({});
-
-  // function filteredToDo() {
-  //   const toDoTasks = tasks.filter((task) => {
-  //     return task.complete === false;
-  //   });
-  //   return setDoList(toDoTasks);
-  // }
-
   return (
     <List
       className="taskList"

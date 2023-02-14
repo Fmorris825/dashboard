@@ -1,5 +1,6 @@
 import { Progress, Space } from "antd";
 import { useEffect, useState } from "react";
+import WeatherModule from "./DashBoardPageComponents/WeatherModule";
 import axios from "axios";
 
 const DashBoardPage = ({ tasks, toDoList, completedList }) => {
@@ -7,7 +8,7 @@ const DashBoardPage = ({ tasks, toDoList, completedList }) => {
   const completedPercentage = (completed / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
   const [toDo, setToDo] = useState(toDoList.length);
-  const [yahooWeather, setYahooWeather] = useState({});
+  const [yahooWeather, setYahooWeather] = useState(false);
 
   useEffect(() => {
     getWeather();
@@ -37,7 +38,8 @@ const DashBoardPage = ({ tasks, toDoList, completedList }) => {
   }
 
   return (
-    <>
+    <div>
+      <WeatherModule yahooWeather={yahooWeather} />
       <Progress
         percent={roundCompleted}
         strokeColor={{
@@ -71,7 +73,7 @@ const DashBoardPage = ({ tasks, toDoList, completedList }) => {
           }}
         />
       </Space>
-    </>
+    </div>
   );
 };
 
