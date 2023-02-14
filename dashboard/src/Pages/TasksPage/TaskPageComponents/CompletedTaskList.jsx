@@ -6,6 +6,10 @@ import EditTaskButton from "./EditTaskButton";
 import UndoTask from "./UndoTask";
 
 const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
+  const sorted = completedList.sort(function (a, b) {
+    return b.timestamp.valueOf() - a.timestamp.valueOf();
+  });
+
   return (
     <List
       className="taskList"

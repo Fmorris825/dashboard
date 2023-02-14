@@ -21,6 +21,7 @@ import {
   FolderOpenOutlined,
   RobotOutlined,
   FireOutlined,
+  DesktopOutlined,
 } from "@ant-design/icons";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -49,7 +50,7 @@ const items1 = ["1", "2", "3"].map((key) => ({
 
 const navItems = [
   getItem("HomeBase", "sub1", <MailOutlined />, [
-    getItem("Dashboard", "/dashboard", <RobotOutlined />),
+    getItem("Dashboard", "/dashboard", <DesktopOutlined />),
     getItem("Tasks", "/tasks", <RobotOutlined />),
     getItem("Planning", "/planning", <CalendarOutlined />),
     getItem("Projects", "/projects", <FireOutlined />),
@@ -58,25 +59,6 @@ const navItems = [
   getItem("Fred's Links", "/links", <UserOutlined />),
   getItem("Resources", "/resources", <DatabaseOutlined />),
 ];
-
-//Original Nav Lists
-// const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-//   (icon, index) => {
-//     const key = String(index + 1);
-//     return {
-//       key: `sub${key}`,
-//       icon: React.createElement(icon),
-//       label: `subnav ${key}`,
-//       children: new Array(4).fill(null).map((_, j) => {
-//         const subKey = index * 4 + j + 1;
-//         return {
-//           key: subKey,
-//           label: `option${subKey}`,
-//         };
-//       }),
-//     };
-//   }
-// );
 
 function App() {
   const {
