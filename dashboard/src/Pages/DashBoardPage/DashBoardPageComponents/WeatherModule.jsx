@@ -6,15 +6,17 @@ import {
 import { Avatar, Card, Skeleton, Switch } from "antd";
 import { useState } from "react";
 import showers from "../../../WeatherIcons/showers.png";
+import LoadingTile from "./LoadingTile";
 
 const { Meta } = Card;
 
 const WeatherModule = ({ yahooWeather }) => {
   const [loading, setLoading] = useState(yahooWeather);
-  const onChange = (checked) => {
-    setLoading(!checked);
-  };
-
+  // const onChange = (yahooWeather) => {
+  //   setLoading(!yahooWeather);
+  // };
+  console.log(yahooWeather);
+  if (!yahooWeather) return <LoadingTile />;
   return (
     <>
       <Card
@@ -28,7 +30,7 @@ const WeatherModule = ({ yahooWeather }) => {
           <EllipsisOutlined key="ellipsis" />,
         ]}
       >
-        <Skeleton loading={loading} avatar active>
+        <Skeleton loading={!yahooWeather} avatar active>
           <Meta
             avatar={<Avatar src={showers} />}
             title={"Weather for  " + yahooWeather.location.city}
