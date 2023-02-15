@@ -1,5 +1,6 @@
 import "antd/dist/reset.css";
 import "./App.css";
+import axios from "axios";
 import React from "react";
 import { useState, useEffect, createContext } from "react";
 import { db } from "./config";
@@ -70,15 +71,40 @@ function App() {
   const tasksCollectionRef = collection(db, "Tasks");
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
+  const [yahooWeather, setYahooWeather] = useState(false);
 
   useEffect(() => {
     getTasks();
+    getWeather();
+    console.log("hit");
   }, []);
 
   useEffect(() => {
     filterCompleted();
     filteredToDo();
   }, [tasks]);
+
+  async function getWeather() {
+    try {
+      const response = await axios.get(
+        "https://yahoo-weather5.p.rapidapi.com/weather",
+        {
+          params: { location: "Irving", format: "json", u: "f" },
+          headers: {
+            "X-RapidAPI-Key":
+              "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+            "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
+          },
+        }
+      );
+      setYahooWeather(response.data);
+      if (response.status === 200) {
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
 
   const getTasks = async () => {
     const data = await getDocs(tasksCollectionRef);
@@ -102,6 +128,7 @@ function App() {
     return setDoList(toDoTasks);
   }
 
+  console.log(yahooWeather);
   return (
     <Layout>
       <Header className="header">
@@ -167,6 +194,7 @@ function App() {
                       tasks={tasks}
                       toDoList={toDoList}
                       completedList={completedList}
+                      yahooWeather={yahooWeather}
                     />
                   }
                 ></Route>

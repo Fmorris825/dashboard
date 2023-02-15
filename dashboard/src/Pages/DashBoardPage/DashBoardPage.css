@@ -1,7 +1,68 @@
 .weatherDetails {
+  display: flex;
   font-size: 12px;
+  height: auto;
 }
 
 .detailsContainer {
   padding-top: 15px;
+}
+
+.forecastCards {
+  width: 100px;
+  margin: 10px;
+}
+
+.weatherModule {
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+}
+
+.ant-card-head-title {
+  text-align: center;
+  font-size: 10px;
+  padding: 0px, 12px;
+}
+
+.ant-card .ant-card-head {
+  padding: 0%;
+  min-height: 30px;
+}
+
+.ant-card .ant-card-body {
+  padding: 5px;
+  font-size: 10px;
+}
+
+.forecastCardsContainer {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+}
+
+.todayCard {
+  width: 300px;
+  margin-top: 16px;
+  display: flex;
+}
+.ant-avatar-image img {
+  height: 20px;
+  object-fit: contain;
+}
+
+.ant-card .ant-card-meta-title {
+  font-size: 14px;
+}
+
+.bigCardMeta {
+  font-size: 10px;
+}
+
+.ant-card .ant-card-meta-avatar {
+  padding-inline-end: 0;
+}
+
+.CardMeta > * {
+  font-size: 10px;
 }

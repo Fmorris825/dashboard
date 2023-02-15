@@ -2,40 +2,40 @@ import { Progress, Space } from "antd";
 import { useEffect, useState } from "react";
 import WeatherModule from "./DashBoardPageComponents/WeatherModule";
 import "./DashBoardPage.css";
-import axios from "axios";
 
-const DashBoardPage = ({ tasks, toDoList, completedList }) => {
+const DashBoardPage = ({ tasks, toDoList, completedList, yahooWeather }) => {
   const completedPercentage = (completedList.length / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
   const [toDo, setToDo] = useState(toDoList.length);
-  const [yahooWeather, setYahooWeather] = useState(false);
+  // const [yahooWeather, setYahooWeather] = useState(false);
 
-  useEffect(() => {
-    getWeather();
-  }, []);
+  // useEffect(() => {
+  //   getWeather();
+  // }, []);
 
-  async function getWeather() {
-    try {
-      const response = await axios.get(
-        "https://yahoo-weather5.p.rapidapi.com/weather",
-        {
-          params: { location: "Irving", format: "json", u: "f" },
-          headers: {
-            "X-RapidAPI-Key":
-              "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
-            "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
-          },
-        }
-      );
-      setYahooWeather(response.data);
-      if (response.status === 200) {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  }
+  // async function getWeather() {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://yahoo-weather5.p.rapidapi.com/weather",
+  //       {
+  //         params: { location: "Irving", format: "json", u: "f" },
+  //         headers: {
+  //           "X-RapidAPI-Key":
+  //             "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+  //           "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
+  //         },
+  //       }
+  //     );
+  //     setYahooWeather(response.data);
+  //     if (response.status === 200) {
+  //       console.log(response);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response.data);
+  //   }
+  // }
 
+  // console.log(yahooWeather);
   return (
     <div>
       <WeatherModule yahooWeather={yahooWeather} />
