@@ -62,7 +62,3 @@
 .ant-card .ant-card-meta-avatar {
   padding-inline-end: 0;
 }
-
-.CardMeta > * {
-  font-size: 10px;
-}
