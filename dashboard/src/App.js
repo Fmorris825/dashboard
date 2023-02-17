@@ -25,7 +25,15 @@ import {
   DesktopOutlined,
 } from "@ant-design/icons";
 
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import {
+  Breadcrumb,
+  Layout,
+  Menu,
+  theme,
+  Switch,
+  ConfigProvider,
+  Button,
+} from "antd";
 import TasksPage from "./Pages/TasksPage/TasksPage";
 import PlanningPage from "./Pages/PlanningPage/PlanningPage";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
@@ -43,6 +51,7 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
+
 //NavBar List
 const items1 = ["1", "2", "3"].map((key) => ({
   key,
@@ -72,6 +81,9 @@ function App() {
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
   const [yahooWeather, setYahooWeather] = useState(false);
+  const [ToggleDisplayMode, setToggleDisplayMode] = useState(false);
+  const [darkMode, setDarkMode] = useState("inactive");
+  const [appDisplay, setAppDisplay] = useState("inactive");
 
   useEffect(() => {
     getTasks();
@@ -128,144 +140,133 @@ function App() {
     return setDoList(toDoTasks);
   }
 
-  console.log(yahooWeather);
+  const onChange = (checked) => {
+    setToggleDisplayMode(!ToggleDisplayMode);
+    if (ToggleDisplayMode === false) {
+      setDarkMode("rgba(128, 128, 128, 0.39)");
+      setAppDisplay("active");
+    } else if (ToggleDisplayMode === true) {
+      setDarkMode("rgb(255, 255, 255)");
+      setAppDisplay("inactive");
+    }
+  };
+  console.log(ToggleDisplayMode, darkMode, appDisplay);
+
   return (
-    <Layout>
-      <Header className="header">
-        <h1 className="brand">HOMEBASE</h1>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["1"]}
-          items={items1}
-        />
-      </Header>
-      <Layout>
-        <Sider
-          width={200}
-          style={{
-            background: colorBgContainer,
-          }}
-        >
-          <Menu
-            onClick={({ key }) => {
-              navigate(key);
-            }}
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            style={{
-              height: "100%",
-              borderRight: 0,
-              // color: "royalblue",
-            }}
-            items={navItems}
-          />
-        </Sider>
-        <Layout
-          style={{
-            padding: "0 24px 24px",
-          }}
-        >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              background: colorBgContainer,
-            }}
-          >
-            <div>
-              <Routes>
-                <Route path="/" element={<div>Dashboard</div>}></Route>
-                <Route
-                  path="/dashboard"
-                  element={
-                    <DashBoardPage
-                      tasks={tasks}
-                      toDoList={toDoList}
-                      completedList={completedList}
-                      yahooWeather={yahooWeather}
-                    />
-                  }
-                ></Route>
-                <Route path="/projects" element={<ProjectsPage />}></Route>
-                <Route
-                  path="/tasks"
-                  element={
-                    <TasksPage
-                      tasks={tasks}
-                      tasksCollectionRef={tasksCollectionRef}
-                      getTasks={getTasks}
-                      completedList={completedList}
-                      toDoList={toDoList}
-                      filteredToDo={filteredToDo}
-                    />
-                  }
-                ></Route>
-                <Route path="/planning" element={<PlanningPage />}></Route>
-                <Route path="/backlog" element={<div>Backlog</div>}></Route>
-                <Route path="/resources" element={<div>Resources</div>}></Route>
-                <Route path="/links" element={<div>Fred's Links</div>}></Route>
-              </Routes>
-            </div>
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+    <div className={appDisplay}>
+      <ConfigProvider
+      // theme={{
+      //   token: {
+      //     colorPrimary: `#00b96b`,
+      //     colorBgLayout: `rgba(128, 128, 128, 0.39)`,
+      //     colorBgBase: `rgba(128, 128, 128, 0.39)`,
+      //     colorBgContainer: `rgba(128, 128, 128, 0.39)`,
+      //   },
+      // }}
+      >
+        <Layout>
+          <Header className="header">
+            <h1 className="brand">HOMEBASE</h1>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={["1"]}
+              items={items1}
+            />
+            <Switch defaultChecked onChange={onChange} />
+            <Button>Hi</Button>
+          </Header>
+          <Layout>
+            <Sider
+              width={200}
+              style={{
+                background: colorBgContainer,
+              }}
+            >
+              <Menu
+                onClick={({ key }) => {
+                  navigate(key);
+                }}
+                mode="inline"
+                defaultSelectedKeys={["1"]}
+                defaultOpenKeys={["sub1"]}
+                style={{
+                  height: "100%",
+                  borderRight: 0,
+                  backgroundColor: darkMode,
+                }}
+                items={navItems}
+              />
+            </Sider>
+            <Layout
+              style={{
+                padding: "0 24px 24px",
+              }}
+            >
+              <Breadcrumb
+                style={{
+                  margin: "16px 0",
+                }}
+              >
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+                <Breadcrumb.Item>App</Breadcrumb.Item>
+              </Breadcrumb>
+              <Content
+                style={{
+                  padding: 24,
+                  margin: 0,
+                  minHeight: 280,
+                  backgroundColor: darkMode,
+                }}
+              >
+                <div>
+                  <Routes>
+                    <Route path="/" element={<div>Dashboard</div>}></Route>
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <DashBoardPage
+                          tasks={tasks}
+                          toDoList={toDoList}
+                          completedList={completedList}
+                          yahooWeather={yahooWeather}
+                        />
+                      }
+                    ></Route>
+                    <Route path="/projects" element={<ProjectsPage />}></Route>
+                    <Route
+                      path="/tasks"
+                      element={
+                        <TasksPage
+                          tasks={tasks}
+                          tasksCollectionRef={tasksCollectionRef}
+                          getTasks={getTasks}
+                          completedList={completedList}
+                          toDoList={toDoList}
+                          filteredToDo={filteredToDo}
+                        />
+                      }
+                    ></Route>
+                    <Route path="/planning" element={<PlanningPage />}></Route>
+                    <Route path="/backlog" element={<div>Backlog</div>}></Route>
+                    <Route
+                      path="/resources"
+                      element={<div>Resources</div>}
+                    ></Route>
+                    <Route
+                      path="/links"
+                      element={<div>Fred's Links</div>}
+                    ></Route>
+                  </Routes>
+                </div>
+              </Content>
+            </Layout>
+          </Layout>
+        </Layout>{" "}
+      </ConfigProvider>
+    </div>
   );
-
-  // function Contents() {
-
-  //   const [tasks, setTasks] = useState([]);
-  //   const tasksCollectionRef = collection(db, "Tasks");
-
-  //   const TasksPage = () => {
-  //     const [tasks, setTasks] = useState([]);
-  //     const tasksCollectionRef = collection(db, "Tasks");
-
-  //     const getTasks = async () => {
-  //       const data = await getDocs(tasksCollectionRef);
-  //       setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //       console.log("Hit");
-  //     };
-
-  //     useEffect(() => {
-  //       getTasks();
-  //     }, []);
-
-  //   return (
-  //     <div>
-  //       <Routes>
-  //         <Route path="/" element={<div>Dashboard</div>}></Route>
-  //         <Route path="/dashboard" element={<DashBoardPage tasks={tasks} />}></Route>
-  //         <Route path="/projects" element={<ProjectsPage />}></Route>
-  //         <Route
-  //           path="/tasks"
-  //           element={
-  //             <TasksPage
-  //               tasks={tasks}
-  //               tasksCollectionRef={tasksCollectionRef}
-  //               getTasks={getTasks}
-  //             />
-  //           }
-  //         ></Route>
-  //         <Route path="/planning" element={<PlanningPage />}></Route>
-  //         <Route path="/backlog" element={<div>Backlog</div>}></Route>
-  //         <Route path="/resources" element={<div>Resources</div>}></Route>
-  //         <Route path="/links" element={<div>Fred's Links</div>}></Route>
-  //       </Routes>
-  //     </div>
-  //   );
 }
 
 export default App;

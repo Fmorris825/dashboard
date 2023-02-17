@@ -62,3 +62,7 @@
 .ant-card .ant-card-meta-avatar {
   padding-inline-end: 0;
 }
+
+.progressModuleContainer {
+  width: 35;
+}

@@ -31,7 +31,7 @@ const ForecastCard = ({ forecast }) => {
     icon = sunny;
   } else if (forecast.text === "Thunderstorms") {
     icon = thunderstorms;
-  } else if (forecast.text === "Clear") {
+  } else if (forecast.text === "Clear" || forecast.text === "Mostly Clear") {
     icon = clear;
   } else icon = null;
   return (

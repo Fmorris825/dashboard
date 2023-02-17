@@ -18,12 +18,17 @@
 }
 
 h1 {
-  color: azure;
   font-family: "Lilita One", sans-serif;
   font-size: 45px;
 }
 
+h2 {
+  font-family: "Lilita One", sans-serif;
+  font-size: 40px;
+}
+
 .brand {
+  color: azure;
   margin-right: 15px;
 }
 
@@ -36,4 +41,13 @@ button {
 button:hover {
   color: blue;
   cursor: pointer;
+}
+
+.active {
+  background-color: rgba(128, 128, 128, 0.39);
+  height: 100vh;
+}
+.inactive {
+  background-color: rgb(255, 255, 255);
+  height: 100vh;
 }
