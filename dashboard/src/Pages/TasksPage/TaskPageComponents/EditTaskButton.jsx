@@ -38,7 +38,11 @@ const EditTaskButton = ({ selectedTask, getTasks }) => {
 
   return (
     <>
-      <button type="primary" onClick={showModal}>
+      <button
+        type="primary"
+        onClick={showModal}
+        style={{ backgroundColor: "inherit" }}
+      >
         edit
       </button>
       <Modal

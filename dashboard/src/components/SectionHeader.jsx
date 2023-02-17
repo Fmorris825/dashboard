@@ -27,7 +27,6 @@ const SectionHeader = ({ header }) => {
       setGreeting("Good Evening");
     }
   }
-  console.log(hour);
   return (
     <>
       <h2>{greeting}, Fred</h2>

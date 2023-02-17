@@ -84,10 +84,14 @@ function App() {
   const [ToggleDisplayMode, setToggleDisplayMode] = useState(false);
   const [darkMode, setDarkMode] = useState("inactive");
   const [appDisplay, setAppDisplay] = useState("inactive");
+  const [date, setDate] = useState("");
+  const [news, setNews] = useState({});
 
   useEffect(() => {
     getTasks();
     getWeather();
+    getNewDate();
+    getNews();
     console.log("hit");
   }, []);
 
@@ -110,6 +114,39 @@ function App() {
         }
       );
       setYahooWeather(response.data);
+      if (response.status === 200) {
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
+
+  function getNewDate() {
+    let today = new Date(),
+      date =
+        today.getDate() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getFullYear();
+    setDate(date);
+  }
+
+  async function getNews() {
+    try {
+      const response = await axios.get(
+        "https://reuters-business-and-financial-news.p.rapidapi.com/article-date/17-2-2023",
+        {
+          headers: {
+            "X-RapidAPI-Key":
+              "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+            "X-RapidAPI-Host":
+              "reuters-business-and-financial-news.p.rapidapi.com",
+          },
+        }
+      );
+      setNews(response.data);
       if (response.status === 200) {
         console.log(response);
       }
@@ -150,7 +187,8 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-  console.log(ToggleDisplayMode, darkMode, appDisplay);
+
+  console.log(news[0]);
 
   return (
     <div className={appDisplay}>
@@ -231,6 +269,7 @@ function App() {
                           toDoList={toDoList}
                           completedList={completedList}
                           yahooWeather={yahooWeather}
+                          news={news}
                         />
                       }
                     ></Route>

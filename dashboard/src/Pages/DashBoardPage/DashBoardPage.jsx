@@ -4,13 +4,20 @@ import "./DashBoardPage.css";
 import ProgressModule from "./ProgressComponents/ProgressModule";
 import LoadingTile from "./DashBoardPageComponents/LoadingTile";
 import SectionHeader from "../../components/SectionHeader";
+import NewsModule from "./NewsComponents/NewsModule";
 
-const DashBoardPage = ({ tasks, toDoList, completedList, yahooWeather }) => {
+const DashBoardPage = ({
+  tasks,
+  toDoList,
+  completedList,
+  yahooWeather,
+  news,
+}) => {
   const completedPercentage = (completedList.length / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
   const [toDo, setToDo] = useState(toDoList.length);
 
-  if (!yahooWeather) {
+  if (!yahooWeather || !news) {
     return <LoadingTile />;
   }
   return (
@@ -18,6 +25,7 @@ const DashBoardPage = ({ tasks, toDoList, completedList, yahooWeather }) => {
       <SectionHeader header="Hello, Fred" />
       <WeatherModule yahooWeather={yahooWeather} />
       <ProgressModule roundCompleted={roundCompleted} toDo={toDo} />
+      <NewsModule news={news} />
     </div>
   );
 };
