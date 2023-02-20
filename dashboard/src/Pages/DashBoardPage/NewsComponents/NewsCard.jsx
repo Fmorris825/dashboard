@@ -1,10 +1,10 @@
 const NewsCard = ({ article }) => {
-  const ImgShort = article.files[0];
-
   return (
-    <div>
-      <h3 className="carouselSlide">{article.articlesName}</h3>
-      {/* <img src={ImgShort.urlCdn} alt="Article Img" /> */}
+    <div className="carouselSlide">
+      <h3 className="slideText">{article.title}</h3>
+      <a href={article.url} target="_blank" className="newsImageContainer">
+        <img className="newsImage" src={article.urlToImage} alt="Article Img" />
+      </a>
     </div>
   );
 };

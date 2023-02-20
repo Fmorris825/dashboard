@@ -100,6 +100,7 @@ function App() {
     filteredToDo();
   }, [tasks]);
 
+  //Weather API Request//
   async function getWeather() {
     try {
       const response = await axios.get(
@@ -133,18 +134,11 @@ function App() {
     setDate(date);
   }
 
+  //NewAPI Request//
   async function getNews() {
     try {
       const response = await axios.get(
-        "https://reuters-business-and-financial-news.p.rapidapi.com/article-date/17-2-2023",
-        {
-          headers: {
-            "X-RapidAPI-Key":
-              "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
-            "X-RapidAPI-Host":
-              "reuters-business-and-financial-news.p.rapidapi.com",
-          },
-        }
+        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=42ece64708dc425593bc6a5916f4abb6"
       );
       setNews(response.data);
       if (response.status === 200) {
@@ -188,7 +182,7 @@ function App() {
     }
   };
 
-  console.log(news[0]);
+  console.log(news.articles);
 
   return (
     <div className={appDisplay}>
@@ -212,7 +206,6 @@ function App() {
               items={items1}
             />
             <Switch defaultChecked onChange={onChange} />
-            <Button>Hi</Button>
           </Header>
           <Layout>
             <Sider
@@ -238,10 +231,10 @@ function App() {
             </Sider>
             <Layout
               style={{
-                padding: "0 24px 24px",
+                padding: "24px 24px 24px",
               }}
             >
-              <Breadcrumb
+              {/* <Breadcrumb
                 style={{
                   margin: "16px 0",
                 }}
@@ -249,7 +242,7 @@ function App() {
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
                 <Breadcrumb.Item>App</Breadcrumb.Item>
-              </Breadcrumb>
+              </Breadcrumb> */}
               <Content
                 style={{
                   padding: 24,
@@ -269,7 +262,7 @@ function App() {
                           toDoList={toDoList}
                           completedList={completedList}
                           yahooWeather={yahooWeather}
-                          news={news}
+                          news={news.articles}
                         />
                       }
                     ></Route>

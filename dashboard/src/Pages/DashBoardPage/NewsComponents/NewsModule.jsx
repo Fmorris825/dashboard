@@ -6,9 +6,9 @@ const NewsModule = ({ news }) => {
   if (!news) return <LoadingTile />;
   return (
     <Carousel autoplay>
-      {/* {news.map((article, index) => {
+      {news.map((article, index) => {
         return <NewsCard article={article} />;
-      })} */}
+      })}
     </Carousel>
   );
 };

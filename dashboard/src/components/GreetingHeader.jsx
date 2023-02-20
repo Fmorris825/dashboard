@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const SectionHeader = ({ header }) => {
+const GreetingHeader = ({ header }) => {
   const [time, setTime] = useState("");
   const [hour, setHour] = useState(0);
   const [greeting, setGreeting] = useState("Good Morning");
@@ -34,4 +34,4 @@ const SectionHeader = ({ header }) => {
   );
 };
 
-export default SectionHeader;
+export default GreetingHeader;

@@ -3,8 +3,9 @@ import WeatherModule from "./WeatherComponents/WeatherModule";
 import "./DashBoardPage.css";
 import ProgressModule from "./ProgressComponents/ProgressModule";
 import LoadingTile from "./DashBoardPageComponents/LoadingTile";
-import SectionHeader from "../../components/SectionHeader";
 import NewsModule from "./NewsComponents/NewsModule";
+import GreetingHeader from "../../components/GreetingHeader";
+import { Row } from "antd";
 
 const DashBoardPage = ({
   tasks,
@@ -22,10 +23,12 @@ const DashBoardPage = ({
   }
   return (
     <div>
-      <SectionHeader header="Hello, Fred" />
+      <GreetingHeader />
       <WeatherModule yahooWeather={yahooWeather} />
-      <ProgressModule roundCompleted={roundCompleted} toDo={toDo} />
-      <NewsModule news={news} />
+      <Row className="progressAndNewsRow">
+        <ProgressModule roundCompleted={roundCompleted} toDo={toDo} />
+        <NewsModule news={news} />
+      </Row>
     </div>
   );
 };

@@ -25,7 +25,7 @@ const ForecastCard = ({ forecast }) => {
     icon = partlyCloudy;
   } else if (forecast.text === "Scattered Showers") {
     icon = scatteredShowers;
-  } else if (forecast.text === "Showers") {
+  } else if (forecast.text === "Showers" || forecast.text === "Rain") {
     icon = showers;
   } else if (forecast.text === "Sunny") {
     icon = sunny;
