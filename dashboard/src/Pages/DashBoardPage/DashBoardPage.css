@@ -40,13 +40,14 @@
   display: flex;
   justify-content: center;
   width: 800px;
+  margin: 0%;
 }
 
 .todayCard {
   width: 300px;
-  margin-top: 16px;
   display: flex;
   padding: 15px;
+  margin: 10px 0px;
 }
 .ant-avatar-image img {
   height: 20px;
@@ -65,13 +66,16 @@
   padding-inline-end: 0;
 }
 
-.progressModuleContainer {
-  width: 35%;
+.Container {
   background: #fff;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 1px rgba(211, 211, 211, 0.321);
   margin: 10px 0px;
   padding: 20px;
+}
+
+.progressContainer {
+  width: 35%;
 }
 
 .carouselSlide {
@@ -116,7 +120,7 @@
   background-color: black;
 }
 
-.progressAndNewsRow {
+.moduleRow {
   display: flex;
   justify-content: space-around;
 }

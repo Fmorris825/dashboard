@@ -1,8 +1,10 @@
 import { Progress, Space } from "antd";
+import Header from "../../../components/Header";
 
 const ProgressModule = ({ roundCompleted }) => {
   return (
-    <div className="progressModuleContainer">
+    <div className="Container progressContainer">
+      <Header headerText="Task Progress" />
       <Progress
         percent={roundCompleted}
         strokeColor={{

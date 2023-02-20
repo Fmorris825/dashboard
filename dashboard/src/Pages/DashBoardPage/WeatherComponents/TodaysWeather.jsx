@@ -10,6 +10,7 @@ import partlyCloudy from "../../../WeatherIcons/PartlyCloudy.png";
 import scatteredShowers from "../../../WeatherIcons/ScatteredShowers.png";
 import sunny from "../../../WeatherIcons/Sunny.png";
 import thunderstorms from "../../../WeatherIcons/Thunderstorms.png";
+import Header from "../../../components/Header";
 
 const { Meta } = Card;
 
@@ -38,6 +39,7 @@ const TodaysWeather = ({ yahooWeather }) => {
   if (!yahooWeather) return <LoadingTile />;
   return (
     <Card loading={false} className="todayCard" bordered={false}>
+      <Header headerText="Today's Weather" />
       <Meta
         avatar={<Avatar src={icon} />}
         className="bigCardMeta"

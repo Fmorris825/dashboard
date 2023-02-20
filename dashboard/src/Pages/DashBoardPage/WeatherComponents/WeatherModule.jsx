@@ -4,7 +4,7 @@ import TodaysWeather from "./TodaysWeather";
 
 const WeatherModule = ({ yahooWeather }) => {
   return (
-    <Row className="weatherModule">
+    <Row className="moduleRow">
       <TodaysWeather yahooWeather={yahooWeather} />
       <ForecastCards yahooWeather={yahooWeather} />
     </Row>

@@ -25,7 +25,7 @@ const DashBoardPage = ({
     <div>
       <GreetingHeader />
       <WeatherModule yahooWeather={yahooWeather} />
-      <Row className="progressAndNewsRow">
+      <Row className="moduleRow">
         <ProgressModule roundCompleted={roundCompleted} toDo={toDo} />
         <NewsModule news={news} />
       </Row>
