@@ -5,6 +5,7 @@ import React from "react";
 import { useState, useEffect, createContext } from "react";
 import { db } from "./config";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import keys from "./keys";
 import {
   collection,
   getDocs,
@@ -138,7 +139,7 @@ function App() {
   async function getNews() {
     try {
       const response = await axios.get(
-        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=42ece64708dc425593bc6a5916f4abb6"
+        `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${keys.newsApiKey}`
       );
       setNews(response.data);
       if (response.status === 200) {
