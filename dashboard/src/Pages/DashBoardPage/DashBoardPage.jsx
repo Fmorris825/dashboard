@@ -19,7 +19,11 @@ const DashBoardPage = ({
   const [toDo, setToDo] = useState(toDoList.length);
 
   if (!yahooWeather || !news) {
-    return <LoadingTile />;
+    return (
+      <div className="loadingContainer">
+        <LoadingTile />
+      </div>
+    );
   }
   return (
     <div>

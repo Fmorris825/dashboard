@@ -124,3 +124,9 @@
   display: flex;
   justify-content: space-around;
 }
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
