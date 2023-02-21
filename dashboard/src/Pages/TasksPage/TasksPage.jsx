@@ -1,5 +1,5 @@
 import "./TasksPage.css";
-import { useEffect, createContext } from "react";
+import { useEffect, createContext, useState } from "react";
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
 import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
@@ -13,10 +13,23 @@ const TasksPage = ({
   toDoList,
   tasksCollectionRef,
   filteredToDo,
+  projects,
 }) => {
+  const [projectTaskList, setProjectTaskList] = useState([]);
+
   useEffect(() => {
-    getTasks();
+    filterTasks();
   }, []);
+
+  function filterTasks() {
+    const projectTasks = tasks.filter((task) => {
+      if (task.project_Id === "CROBPaUMvvHMhs9d4mXm") {
+        return task;
+      }
+    });
+    return setProjectTaskList(projectTasks);
+  }
+  console.log(projectTaskList);
   return (
     <div>
       <AddTaskModal

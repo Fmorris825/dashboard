@@ -293,6 +293,7 @@ function App() {
                           completedList={completedList}
                           toDoList={toDoList}
                           filteredToDo={filteredToDo}
+                          projects={projects}
                         />
                       }
                     ></Route>
