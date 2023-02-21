@@ -1,11 +1,16 @@
-import "antd/dist/reset.css";
-import "./App.css";
+// General Imports
 import axios from "axios";
 import React from "react";
 import { useState, useEffect, createContext } from "react";
-import { db } from "./config";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import keys from "./keys";
+
+// CSS Imports //
+import "antd/dist/reset.css";
+import "./App.css";
+
+// Firebase Imports //
+import { db } from "./config";
 import {
   collection,
   getDocs,
@@ -15,6 +20,7 @@ import {
   //   deleteDoc,
 } from "firebase/firestore";
 
+// Icon Imports //
 import {
   MailOutlined,
   UserOutlined,
@@ -26,23 +32,17 @@ import {
   DesktopOutlined,
 } from "@ant-design/icons";
 
-import {
-  Breadcrumb,
-  Layout,
-  Menu,
-  theme,
-  Switch,
-  ConfigProvider,
-  Button,
-} from "antd";
+// antd Imports //
+import { Layout, Menu, theme, Switch, ConfigProvider } from "antd";
+
+// Component Imports //
 import TasksPage from "./Pages/TasksPage/TasksPage";
 import PlanningPage from "./Pages/PlanningPage/PlanningPage";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
+
+// antd Component Layout //
 const { Header, Content, Sider } = Layout;
-
-// export const TaskContext = createContext();
-
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -79,6 +79,10 @@ function App() {
 
   const [tasks, setTasks] = useState([]);
   const tasksCollectionRef = collection(db, "Tasks");
+
+  const [projects, setProjects] = useState([]);
+  const projectsCollectionRef = collection(db, "Projects");
+
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
   const [yahooWeather, setYahooWeather] = useState(false);
@@ -90,6 +94,7 @@ function App() {
 
   useEffect(() => {
     getTasks();
+    getProjects();
     getWeather();
     getNewDate();
     getNews();
@@ -101,7 +106,7 @@ function App() {
     filteredToDo();
   }, [tasks]);
 
-  //Weather API Request//
+  // Weather API Request //
   async function getWeather() {
     try {
       const response = await axios.get(
@@ -123,7 +128,7 @@ function App() {
       console.log(error.response.data);
     }
   }
-
+  // Get Current Date Function //
   function getNewDate() {
     let today = new Date(),
       date =
@@ -135,7 +140,7 @@ function App() {
     setDate(date);
   }
 
-  //NewAPI Request//
+  // News API Request //
   async function getNews() {
     try {
       const response = await axios.get(
@@ -150,14 +155,21 @@ function App() {
     }
   }
 
+  // Get All Task Request //
   const getTasks = async () => {
     const data = await getDocs(tasksCollectionRef);
     setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log("Hit");
     filterCompleted();
     filteredToDo();
   };
 
+  // Get All Projects Request //
+  const getProjects = async () => {
+    const data = await getDocs(projectsCollectionRef);
+    setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  // Filter Tasks List for Completed Tasks //
   function filterCompleted() {
     const completedTasks = tasks.filter((task) => {
       return task.complete === true;
@@ -165,6 +177,7 @@ function App() {
     return setCompletedList(completedTasks);
   }
 
+  // Filter Tasks List for ToDo Tasks //
   function filteredToDo() {
     const toDoTasks = tasks.filter((task) => {
       return task.complete === false;
@@ -172,6 +185,7 @@ function App() {
     return setDoList(toDoTasks);
   }
 
+  // Toggle Dark Mode //
   const onChange = (checked) => {
     setToggleDisplayMode(!ToggleDisplayMode);
     if (ToggleDisplayMode === false) {
@@ -182,8 +196,6 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-
-  console.log(news.articles);
 
   return (
     <div className={appDisplay}>
@@ -267,7 +279,10 @@ function App() {
                         />
                       }
                     ></Route>
-                    <Route path="/projects" element={<ProjectsPage />}></Route>
+                    <Route
+                      path="/projects"
+                      element={<ProjectsPage projects={projects} />}
+                    ></Route>
                     <Route
                       path="/tasks"
                       element={
