@@ -3,6 +3,7 @@ import { useEffect, createContext, useState } from "react";
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
 import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
+import ProjectDropdownMenu from "./TaskPageComponents/ProjectDropdownMenu";
 
 export const TaskContext = createContext();
 
@@ -32,11 +33,16 @@ const TasksPage = ({
   console.log(projectTaskList);
   return (
     <div>
-      <AddTaskModal
-        tasksCollectionRef={tasksCollectionRef}
-        getTasks={getTasks}
-        filteredToDo={filteredToDo}
-      />
+      <div>
+        <ProjectDropdownMenu projects={projects} />
+      </div>
+      <div>
+        <AddTaskModal
+          tasksCollectionRef={tasksCollectionRef}
+          getTasks={getTasks}
+          filteredToDo={filteredToDo}
+        />
+      </div>
       <div className="taskListContainer">
         <div className="list">
           <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
