@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import { Form, Input } from "antd";
 import { addDoc, getDocs } from "firebase/firestore";
 
-const AddTaskModal = ({ tasksCollectionRef, getTasks, filteredToDo }) => {
+const AddTaskModal = ({
+  tasksCollectionRef,
+  getTasks,
+  filteredToDo,
+  selectedProject,
+}) => {
   const [modal, setModal] = useState(false);
   const [task, setTask] = useState("");
   const [date, setDate] = useState("");
@@ -17,9 +22,10 @@ const AddTaskModal = ({ tasksCollectionRef, getTasks, filteredToDo }) => {
       timestamp: Date.now(),
       date: date,
       complete: false,
+      project_Id: selectedProject.id,
     });
     getTasks();
-    filteredToDo();
+    // filteredToDo();
   };
 
   useEffect(() => {

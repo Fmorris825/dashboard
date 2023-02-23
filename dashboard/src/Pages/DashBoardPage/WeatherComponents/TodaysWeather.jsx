@@ -1,4 +1,3 @@
-import LoadingTile from "../DashBoardPageComponents/LoadingTile";
 import { Avatar, Card } from "antd";
 
 //Icon Imports
@@ -10,7 +9,10 @@ import partlyCloudy from "../../../WeatherIcons/PartlyCloudy.png";
 import scatteredShowers from "../../../WeatherIcons/ScatteredShowers.png";
 import sunny from "../../../WeatherIcons/Sunny.png";
 import thunderstorms from "../../../WeatherIcons/Thunderstorms.png";
+import clear from "../../../WeatherIcons/Clear.png";
+
 import Header from "../../../components/Header";
+import LoadingTile from "../DashBoardPageComponents/LoadingTile";
 
 const { Meta } = Card;
 
@@ -27,15 +29,23 @@ const TodaysWeather = ({ yahooWeather }) => {
     icon = partlyCloudy;
   } else if (weather.condition.text === "Scattered Showers") {
     icon = scatteredShowers;
-  } else if (weather.condition.text === "Showers") {
+  } else if (
+    weather.condition.text === "Showers" ||
+    weather.condition.text === "Rain"
+  ) {
     icon = showers;
   } else if (weather.condition.text === "Sunny") {
     icon = sunny;
   } else if (weather.condition.text === "Thunderstorms") {
     icon = thunderstorms;
+  } else if (
+    weather.condition.text === "Clear" ||
+    weather.condition.text === "Mostly Clear" ||
+    weather.condition.text === "Fair"
+  ) {
+    icon = clear;
   } else icon = null;
 
-  console.log(yahooWeather);
   if (!yahooWeather) return <LoadingTile />;
   return (
     <Card loading={false} className="todayCard" bordered={false}>

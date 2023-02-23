@@ -6,7 +6,7 @@ import CompleteTaskButton from "./CompleteTaskButton";
 
 import { CloseCircleTwoTone } from "@ant-design/icons";
 
-const TasksList = ({ tasks, getTasks, toDoList }) => {
+const TasksList = ({ getTasks, toDoList }) => {
   const sorted = toDoList.sort(function (a, b) {
     return b.timestamp.valueOf() - a.timestamp.valueOf();
   });

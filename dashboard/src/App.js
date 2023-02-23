@@ -281,7 +281,14 @@ function App() {
                     ></Route>
                     <Route
                       path="/projects"
-                      element={<ProjectsPage projects={projects} />}
+                      element={
+                        <ProjectsPage
+                          projects={projects}
+                          tasks={tasks}
+                          getTasks={getTasks}
+                          tasksCollectionRef={tasksCollectionRef}
+                        />
+                      }
                     ></Route>
                     <Route
                       path="/tasks"
