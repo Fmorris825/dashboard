@@ -28,7 +28,7 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
     filterTasks();
   }, [tasks, selectedProject]);
 
-  const onClick = (key) => {
+  const onClick = ({ key }) => {
     const SelectedProject = projects.filter((project) => {
       if (project.id === key) {
         setSelectedProject(project);
@@ -62,10 +62,6 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
     return { label: project.name, key: project.id };
   });
 
-  const onSelect = (project) => {
-    setSelectedProject(project);
-  };
-
   console.log(selectedProject);
   return selectedProject ? (
     <div>
@@ -74,8 +70,8 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
         getTasks={getTasks}
         selectedProject={selectedProject}
       />{" "}
-      {/* <ProjectDropdownMenu items={items} onClick={onClick} /> */}
-      <Swiper
+      <ProjectDropdownMenu items={items} onClick={onClick} />
+      {/* <Swiper
         slidesPerView={3}
         spaceBetween={30}
         pagination={{
@@ -91,7 +87,7 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </Swiper> */}
       {/* <FileUpload /> */}{" "}
       <Header headerText={`Progress for ${selectedProject.name} Project`} />
       <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
@@ -115,8 +111,8 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
         getTasks={getTasks}
         selectedProject={selectedProject}
       />{" "}
-      {/* <ProjectDropdownMenu items={items} onClick={onClick} />{" "} */}
-      <Swiper
+      <ProjectDropdownMenu items={items} onClick={onClick} />{" "}
+      {/* <Swiper
         slidesPerView={4}
         spaceBetween={30}
         pagination={{
@@ -131,12 +127,11 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
               <img
                 className="slideImg"
                 src={project.thumbnail_Url}
-                onDoubleClick={onClick(project.id)}
               />
             </SwiperSlide>
           );
         })}
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 };

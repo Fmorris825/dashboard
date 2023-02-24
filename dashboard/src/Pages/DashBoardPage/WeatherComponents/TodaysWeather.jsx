@@ -10,6 +10,7 @@ import scatteredShowers from "../../../WeatherIcons/ScatteredShowers.png";
 import sunny from "../../../WeatherIcons/Sunny.png";
 import thunderstorms from "../../../WeatherIcons/Thunderstorms.png";
 import clear from "../../../WeatherIcons/Clear.png";
+import windy from "../../../WeatherIcons/Windy.png";
 
 import Header from "../../../components/Header";
 import LoadingTile from "../DashBoardPageComponents/LoadingTile";
@@ -38,6 +39,8 @@ const TodaysWeather = ({ yahooWeather }) => {
     icon = sunny;
   } else if (weather.condition.text === "Thunderstorms") {
     icon = thunderstorms;
+  } else if (weather.condition.text === "Windy") {
+    icon = windy;
   } else if (
     weather.condition.text === "Clear" ||
     weather.condition.text === "Mostly Clear" ||

@@ -10,6 +10,7 @@ import scatteredShowers from "../../../WeatherIcons/ScatteredShowers.png";
 import sunny from "../../../WeatherIcons/Sunny.png";
 import thunderstorms from "../../../WeatherIcons/Thunderstorms.png";
 import clear from "../../../WeatherIcons/Clear.png";
+import windy from "../../../WeatherIcons/Windy.png";
 
 const { Meta } = Card;
 
@@ -31,6 +32,8 @@ const ForecastCard = ({ forecast }) => {
     icon = sunny;
   } else if (forecast.text === "Thunderstorms") {
     icon = thunderstorms;
+  } else if (forecast.text === "Windy") {
+    icon = windy;
   } else if (
     forecast.text === "Clear" ||
     forecast.text === "Mostly Clear" ||
