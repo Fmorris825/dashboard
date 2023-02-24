@@ -11,8 +11,8 @@ const ForecastCards = ({ yahooWeather }) => {
         <Header headerText="Weekly Forecast" />
       </Row>
       <Row>
-        {yahooWeather.forecasts.map((forecast, i) => {
-          return <ForecastCard forecast={forecast} />;
+        {yahooWeather.forecasts.map((forecast, key) => {
+          return <ForecastCard forecast={forecast} index={key} />;
         })}
       </Row>
     </Row>
