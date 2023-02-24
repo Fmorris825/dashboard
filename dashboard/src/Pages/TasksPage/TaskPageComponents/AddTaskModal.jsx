@@ -25,7 +25,7 @@ const AddTaskModal = ({
       project_Id: selectedProject.id,
     });
     getTasks();
-    // filteredToDo();
+    console.log("task Created");
   };
 
   useEffect(() => {

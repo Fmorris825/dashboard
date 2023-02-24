@@ -118,16 +118,16 @@ const ProjectsPage = ({
       <Header headerText={`Progress for ${selectedProject.name} Project`} />
       <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
       <div className="taskListContainer">
-        {/* <div className="list">
+        <div className="list">
           <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
-        </div> */}
-        {/* <div className="list">
+        </div>
+        <div className="list">
           <CompletedTaskList
             tasks={tasks}
             getTasks={getTasks}
             completedList={completedList}
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );

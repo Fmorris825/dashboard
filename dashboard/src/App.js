@@ -173,12 +173,12 @@ function App() {
   }
 
   // Get All Task Request //
-  // const getTasks = async () => {
-  //   const data = await getDocs(tasksCollectionRef);
-  //   setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   filterCompleted();
-  //   filteredToDo();
-  // };
+  const getTasks = async () => {
+    const data = await getDocs(tasksCollectionRef);
+    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    filterCompleted();
+    filteredToDo();
+  };
 
   // Get All Projects Request //
   const getProjects = async () => {
@@ -213,7 +213,6 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-  console.log(projectsCollectionRef, tasksCollectionRef);
   return (
     <div className={appDisplay}>
       <ConfigProvider
@@ -304,7 +303,7 @@ function App() {
                           projects={projects}
                           setProjects={setProjects}
                           tasks={tasks}
-                          // getTasks={getTasks}
+                          getTasks={getTasks}
                           tasksCollectionRef={tasksCollectionRef}
                           isLoading={isLoading}
                           setIsLoading={setIsLoading}
@@ -318,7 +317,7 @@ function App() {
                         <TasksPage
                           tasks={tasks}
                           tasksCollectionRef={tasksCollectionRef}
-                          // getTasks={getTasks}
+                          getTasks={getTasks}
                           completedList={completedList}
                           toDoList={toDoList}
                           filteredToDo={filteredToDo}
