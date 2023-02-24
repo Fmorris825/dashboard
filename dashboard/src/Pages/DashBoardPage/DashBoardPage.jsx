@@ -13,6 +13,7 @@ const DashBoardPage = ({
   completedList,
   yahooWeather,
   news,
+  loading,
 }) => {
   const completedPercentage = (completedList.length / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);

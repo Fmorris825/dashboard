@@ -77,6 +77,8 @@ function App() {
   } = theme.useToken();
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [tasks, setTasks] = useState([]);
   const tasksCollectionRef = collection(db, "Tasks");
 
@@ -93,6 +95,20 @@ function App() {
   const [news, setNews] = useState({});
 
   useEffect(() => {
+    setIsLoading(true);
+    const getTasks = async () => {
+      try {
+        const data = await getDocs(tasksCollectionRef);
+
+        setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        filterCompleted();
+        filteredToDo();
+        setIsLoading(false);
+        console.log("lol");
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getTasks();
     getProjects();
     getWeather();
@@ -121,6 +137,7 @@ function App() {
         }
       );
       setYahooWeather(response.data);
+      setIsLoading(true);
       if (response.status === 200) {
         console.log(response);
       }
@@ -156,12 +173,12 @@ function App() {
   }
 
   // Get All Task Request //
-  const getTasks = async () => {
-    const data = await getDocs(tasksCollectionRef);
-    setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    filterCompleted();
-    filteredToDo();
-  };
+  // const getTasks = async () => {
+  //   const data = await getDocs(tasksCollectionRef);
+  //   setTasks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   filterCompleted();
+  //   filteredToDo();
+  // };
 
   // Get All Projects Request //
   const getProjects = async () => {
@@ -196,7 +213,7 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-
+  console.log(projectsCollectionRef, tasksCollectionRef);
   return (
     <div className={appDisplay}>
       <ConfigProvider
@@ -276,6 +293,7 @@ function App() {
                           completedList={completedList}
                           yahooWeather={yahooWeather}
                           news={news.articles}
+                          isLoading={isLoading}
                         />
                       }
                     ></Route>
@@ -284,9 +302,13 @@ function App() {
                       element={
                         <ProjectsPage
                           projects={projects}
+                          setProjects={setProjects}
                           tasks={tasks}
-                          getTasks={getTasks}
+                          // getTasks={getTasks}
                           tasksCollectionRef={tasksCollectionRef}
+                          isLoading={isLoading}
+                          setIsLoading={setIsLoading}
+                          projectsCollectionRef={projectsCollectionRef}
                         />
                       }
                     ></Route>
@@ -296,11 +318,12 @@ function App() {
                         <TasksPage
                           tasks={tasks}
                           tasksCollectionRef={tasksCollectionRef}
-                          getTasks={getTasks}
+                          // getTasks={getTasks}
                           completedList={completedList}
                           toDoList={toDoList}
                           filteredToDo={filteredToDo}
                           projects={projects}
+                          isLoading={isLoading}
                         />
                       }
                     ></Route>

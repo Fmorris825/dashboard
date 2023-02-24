@@ -8,6 +8,8 @@ import Header from "../../components/Header";
 import "./ProjectPage.css";
 import Slide from "./ProjectsPageComponents/Slide";
 
+import { getDocs } from "firebase/firestore";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,15 +19,38 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination } from "swiper";
+import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
 
-const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
-  const [selectedProject, setSelectedProject] = useState(false);
+const ProjectsPage = ({
+  projects,
+  getTasks,
+  tasks,
+  tasksCollectionRef,
+  setProjects,
+  projectsCollectionRef,
+}) => {
+  const [selectedProject, setSelectedProject] = useState(projects[0]);
   const [projectTaskList, setProjectTaskList] = useState([]);
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    filterTasks();
+    setIsLoading(true);
+    const getProjects = async () => {
+      try {
+        const data = await getDocs(projectsCollectionRef);
+
+        setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        filterTasks();
+        setIsLoading(false);
+        console.log("lol");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProjects();
   }, [tasks, selectedProject]);
 
   const onClick = ({ key }) => {
@@ -62,8 +87,9 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
     return { label: project.name, key: project.id };
   });
 
-  console.log(selectedProject);
-  return selectedProject ? (
+  return isLoading ? (
+    <LoadingTile />
+  ) : (
     <div>
       <AddTaskModal
         tasksCollectionRef={tasksCollectionRef}
@@ -92,46 +118,17 @@ const ProjectsPage = ({ projects, getTasks, tasks, tasksCollectionRef }) => {
       <Header headerText={`Progress for ${selectedProject.name} Project`} />
       <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
       <div className="taskListContainer">
-        <div className="list">
+        {/* <div className="list">
           <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
-        </div>
-        <div className="list">
+        </div> */}
+        {/* <div className="list">
           <CompletedTaskList
             tasks={tasks}
             getTasks={getTasks}
             completedList={completedList}
           />
-        </div>
+        </div> */}
       </div>
-    </div>
-  ) : (
-    <div>
-      <AddTaskModal
-        tasksCollectionRef={tasksCollectionRef}
-        getTasks={getTasks}
-        selectedProject={selectedProject}
-      />{" "}
-      <ProjectDropdownMenu items={items} onClick={onClick} />{" "}
-      {/* <Swiper
-        slidesPerView={4}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        {projects.map((project) => {
-          return (
-            <SwiperSlide>
-              <img
-                className="slideImg"
-                src={project.thumbnail_Url}
-              />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper> */}
     </div>
   );
 };

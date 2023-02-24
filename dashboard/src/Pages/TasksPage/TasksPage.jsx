@@ -3,6 +3,8 @@ import { useEffect, createContext, useState } from "react";
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
 import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
+import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
+import ProjectDropdownMenu from "./TaskPageComponents/ProjectDropdownMenu";
 
 export const TaskContext = createContext();
 
@@ -14,6 +16,7 @@ const TasksPage = ({
   tasksCollectionRef,
   filteredToDo,
   projects,
+  isLoading,
 }) => {
   const [selectedProject, setSelectedProject] = useState({});
   const onClick = ({ key }) => {
@@ -44,7 +47,7 @@ const TasksPage = ({
   //   return setProjectTaskList(projectTasks);
   // }
   // console.log(projectTaskList);
-  console.log(selectedProject);
+  console.log(isLoading);
   return (
     <div>
       <div>{/* <ProjectDropdownMenu items={items} onClick={onClick} /> */}</div>
