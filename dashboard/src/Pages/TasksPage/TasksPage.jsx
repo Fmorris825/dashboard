@@ -60,11 +60,10 @@ const TasksPage = ({
       </div>
       <div className="taskListContainer">
         <div className="list">
-          <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
+          <TasksList getTasks={getTasks} toDoList={toDoList} />
         </div>
         <div className="list">
           <CompletedTaskList
-            tasks={tasks}
             getTasks={getTasks}
             completedList={completedList}
           />

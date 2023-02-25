@@ -1,12 +1,14 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import ProjectDropdownMenu from "../TasksPage/TaskPageComponents/ProjectDropdownMenu";
 import TasksList from "../TasksPage/TaskPageComponents/TasksList";
+
 import CompletedTaskList from "../TasksPage/TaskPageComponents/CompletedTaskList";
 import AddTaskModal from "../TasksPage/TaskPageComponents/AddTaskModal";
 import FileUpload from "./ProjectsPageComponents/FileUpload";
 import Header from "../../components/Header";
 import "./ProjectPage.css";
 import Slide from "./ProjectsPageComponents/Slide";
+import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 
 import { getDocs } from "firebase/firestore";
 
@@ -20,6 +22,8 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper";
 import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
+import { set } from "firebase/database";
+import { async } from "@firebase/util";
 
 const ProjectsPage = ({
   projects,
@@ -34,23 +38,41 @@ const ProjectsPage = ({
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    const getProjects = async () => {
-      try {
-        const data = await getDocs(projectsCollectionRef);
+    // setIsLoading(true);
+    // const getProjects = async () => {
+    //   try {
+    //     const data = await getDocs(projectsCollectionRef);
 
-        setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        filterTasks();
-        setIsLoading(false);
-        console.log("lol");
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProjects();
+    //     setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    //     setIsLoading(false);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // getProjects().then(filterTasks());
+
+    function filterTasks() {
+      return new Promise((resolve, reject) => {
+        const projectTasks = tasks.filter((task) => {
+          if (task.project_Id === selectedProject.id) {
+            return task;
+          }
+        });
+        setProjectTaskList(projectTasks);
+        sortTasks(projectTasks);
+        resolve("yes");
+      });
+    }
+    async function loadingSetter() {
+      setIsLoading(true);
+      const result = await filterTasks();
+      setIsLoading(false);
+      console.log("Promise Resolved: " + result);
+    }
+    loadingSetter();
   }, [tasks, selectedProject]);
 
   const onClick = ({ key }) => {
@@ -71,6 +93,7 @@ const ProjectsPage = ({
     setProjectTaskList(projectTasks);
     sortTasks(projectTasks);
   }
+
   function sortTasks(tasklist) {
     const toDoTasks = tasklist.filter((task) => {
       return task.complete === false;
@@ -87,9 +110,14 @@ const ProjectsPage = ({
     return { label: project.name, key: project.id };
   });
 
-  return isLoading ? (
-    <LoadingTile />
-  ) : (
+  console.log(
+    selectedProject,
+    projectTaskList,
+    toDoList,
+    completedList,
+    isLoading
+  );
+  return (
     <div>
       <AddTaskModal
         tasksCollectionRef={tasksCollectionRef}
@@ -114,23 +142,41 @@ const ProjectsPage = ({
           );
         })}
       </Swiper> */}
-      {/* <FileUpload /> */}{" "}
+      {/* <FileUpload /> */}
       <Header headerText={`Progress for ${selectedProject.name} Project`} />
       <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
       <div className="taskListContainer">
-        <div className="list">
-          <TasksList tasks={tasks} getTasks={getTasks} toDoList={toDoList} />
-        </div>
+        <ErrorBoundary FallbackComponent={OurFallbackComponent}>
+          <div className="list">
+            <TasksList
+              getTasks={getTasks}
+              toDoList={toDoList}
+              isLoading={isLoading}
+            />
+          </div>
+        </ErrorBoundary>
+
         <div className="list">
           <CompletedTaskList
-            tasks={tasks}
             getTasks={getTasks}
             completedList={completedList}
+            isLoading={isLoading}
           />
         </div>
       </div>
     </div>
   );
 };
-
+const OurFallbackComponent = ({
+  error,
+  componentStack,
+  resetErrorBoundary,
+}) => {
+  return (
+    <div>
+      <h1>An error occurred: {error.message}</h1>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+};
 export default ProjectsPage;

@@ -4,13 +4,16 @@ import portrait from "../../../portrait.jpg";
 import DeleteTaskButton from "./DeleteTaskButton";
 import EditTaskButton from "./EditTaskButton";
 import UndoTask from "./UndoTask";
+import LoadingTile from "../../DashBoardPage/DashBoardPageComponents/LoadingTile";
 
-const CompletedTaskList = ({ tasks, getTasks, completedList }) => {
-  const sorted = completedList.sort(function (a, b) {
-    return b.timestamp.valueOf() - a.timestamp.valueOf();
-  });
+const CompletedTaskList = ({ getTasks, completedList, isLoading }) => {
+  // const sorted = completedList.sort(function (a, b) {
+  //   return b.timestamp.valueOf() - a.timestamp.valueOf();
+  // });
 
-  return (
+  return isLoading ? (
+    <LoadingTile />
+  ) : (
     <List
       className="taskList"
       itemLayout="horizontal"

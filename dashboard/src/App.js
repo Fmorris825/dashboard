@@ -1,7 +1,7 @@
 // General Imports
 import axios from "axios";
 import React from "react";
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import keys from "./keys";
 
@@ -38,8 +38,9 @@ import { Layout, Menu, theme, Switch, ConfigProvider } from "antd";
 // Component Imports //
 import TasksPage from "./Pages/TasksPage/TasksPage";
 import PlanningPage from "./Pages/PlanningPage/PlanningPage";
-import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
+import LoadingTile from "./Pages/DashBoardPage/DashBoardPageComponents/LoadingTile";
+import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 
 // antd Component Layout //
 const { Header, Content, Sider } = Layout;
