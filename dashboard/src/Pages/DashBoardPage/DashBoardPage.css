@@ -66,14 +66,6 @@
   padding-inline-end: 0;
 }
 
-.Container {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 1px 1px 2px 1px rgba(211, 211, 211, 0.321);
-  margin: 10px 0px;
-  padding: 20px;
-}
-
 .progressContainer {
   width: 35%;
 }

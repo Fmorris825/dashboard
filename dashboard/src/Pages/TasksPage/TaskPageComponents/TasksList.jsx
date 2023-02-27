@@ -5,7 +5,9 @@ import EditTaskButton from "./EditTaskButton";
 import CompleteTaskButton from "./CompleteTaskButton";
 import LoadingTile from "../../DashBoardPage/DashBoardPageComponents/LoadingTile";
 
-const TasksList = ({ getTasks, toDoList, isLoading }) => {
+const TasksList = ({ list, getTasks, isLoading, multiComponent }) => {
+  const MultiComponent = multiComponent;
+
   // const sorted = toDoList.sort(function (a, b) {
   //   return b.timestamp.valueOf() - a.timestamp.valueOf();
   // });
@@ -16,13 +18,13 @@ const TasksList = ({ getTasks, toDoList, isLoading }) => {
     <List
       className="taskList"
       itemLayout="horizontal"
-      dataSource={toDoList}
+      dataSource={list}
       renderItem={(task) => (
         <List.Item
           actions={[
             <EditTaskButton selectedTask={task} getTasks={getTasks} />,
             <DeleteTaskButton task={task} getTasks={getTasks} />,
-            <CompleteTaskButton selectedTask={task} getTasks={getTasks} />,
+            <MultiComponent selectedTask={task} getTasks={getTasks} />,
           ]}
         >
           <Skeleton avatar title={false} loading={task.loading}>

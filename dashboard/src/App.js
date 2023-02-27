@@ -41,6 +41,7 @@ import PlanningPage from "./Pages/PlanningPage/PlanningPage";
 import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
 import LoadingTile from "./Pages/DashBoardPage/DashBoardPageComponents/LoadingTile";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
+import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 
 // antd Component Layout //
 const { Header, Content, Sider } = Layout;
@@ -300,16 +301,18 @@ function App() {
                     <Route
                       path="/projects"
                       element={
-                        <ProjectsPage
-                          projects={projects}
-                          setProjects={setProjects}
-                          tasks={tasks}
-                          getTasks={getTasks}
-                          tasksCollectionRef={tasksCollectionRef}
-                          isLoading={isLoading}
-                          setIsLoading={setIsLoading}
-                          projectsCollectionRef={projectsCollectionRef}
-                        />
+                        <ErrorBoundary FallbackComponent={OurFallbackComponent}>
+                          <ProjectsPage
+                            projects={projects}
+                            setProjects={setProjects}
+                            tasks={tasks}
+                            getTasks={getTasks}
+                            tasksCollectionRef={tasksCollectionRef}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                            projectsCollectionRef={projectsCollectionRef}
+                          />
+                        </ErrorBoundary>
                       }
                     ></Route>
                     <Route
@@ -347,5 +350,17 @@ function App() {
     </div>
   );
 }
+const OurFallbackComponent = ({
+  error,
+  componentStack,
+  resetErrorBoundary,
+}) => {
+  return (
+    <div>
+      <h1>An error occurred: {error.message}</h1>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+};
 
 export default App;

@@ -2,13 +2,13 @@ import { useEffect, useState, lazy, Suspense } from "react";
 import ProjectDropdownMenu from "../TasksPage/TaskPageComponents/ProjectDropdownMenu";
 import TasksList from "../TasksPage/TaskPageComponents/TasksList";
 
-import CompletedTaskList from "../TasksPage/TaskPageComponents/CompletedTaskList";
 import AddTaskModal from "../TasksPage/TaskPageComponents/AddTaskModal";
 import FileUpload from "./ProjectsPageComponents/FileUpload";
 import Header from "../../components/Header";
 import "./ProjectPage.css";
 import Slide from "./ProjectsPageComponents/Slide";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import CompleteTaskButton from "../TasksPage/TaskPageComponents/CompleteTaskButton";
 
 import { getDocs } from "firebase/firestore";
 
@@ -24,6 +24,7 @@ import { Pagination } from "swiper";
 import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
 import { set } from "firebase/database";
 import { async } from "@firebase/util";
+import UndoTask from "../TasksPage/TaskPageComponents/UndoTask";
 
 const ProjectsPage = ({
   projects,
@@ -33,7 +34,7 @@ const ProjectsPage = ({
   setProjects,
   projectsCollectionRef,
 }) => {
-  const [selectedProject, setSelectedProject] = useState(projects[0]);
+  const [selectedProject, setSelectedProject] = useState(false);
   const [projectTaskList, setProjectTaskList] = useState([]);
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
@@ -110,6 +111,11 @@ const ProjectsPage = ({
     return { label: project.name, key: project.id };
   });
 
+  const handleSelect = (event) => {
+    console.log(event);
+    setSelectedProject(event);
+  };
+
   console.log(
     selectedProject,
     projectTaskList,
@@ -117,13 +123,45 @@ const ProjectsPage = ({
     completedList,
     isLoading
   );
-  return (
+  return selectedProject ? (
     <div>
-      <AddTaskModal
-        tasksCollectionRef={tasksCollectionRef}
-        getTasks={getTasks}
-        selectedProject={selectedProject}
-      />{" "}
+      <ProjectDropdownMenu items={items} onClick={onClick} />
+
+      <Header headerText={`Progress for ${selectedProject.name} Project`} />
+      <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
+      <div>
+        <AddTaskModal
+          tasksCollectionRef={tasksCollectionRef}
+          getTasks={getTasks}
+          selectedProject={selectedProject}
+        />
+        <div className="taskListContainer">
+          <ErrorBoundary FallbackComponent={OurFallbackComponent}>
+            <div className="list">
+              <TasksList
+                getTasks={getTasks}
+                list={toDoList}
+                isLoading={isLoading}
+                multiComponent={CompleteTaskButton}
+              />
+            </div>
+          </ErrorBoundary>
+          <ErrorBoundary FallbackComponent={OurFallbackComponent}>
+            <div className="list">
+              <TasksList
+                getTasks={getTasks}
+                list={completedList}
+                isLoading={isLoading}
+                multiComponent={UndoTask}
+              />
+            </div>
+          </ErrorBoundary>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div>
+      {" "}
       <ProjectDropdownMenu items={items} onClick={onClick} />
       {/* <Swiper
         slidesPerView={3}
@@ -137,33 +175,17 @@ const ProjectsPage = ({
         {projects.map((project) => {
           return (
             <SwiperSlide>
-              <img className="slideImg" src={project.thumbnail_Url} />
+              <img
+                className="slideImg"
+                src={project.thumbnail_Url}
+                value={project}
+                onClick={(event) => setSelectedProject(event.target.value)}
+              />
             </SwiperSlide>
           );
         })}
       </Swiper> */}
-      {/* <FileUpload /> */}
-      <Header headerText={`Progress for ${selectedProject.name} Project`} />
-      <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
-      <div className="taskListContainer">
-        <ErrorBoundary FallbackComponent={OurFallbackComponent}>
-          <div className="list">
-            <TasksList
-              getTasks={getTasks}
-              toDoList={toDoList}
-              isLoading={isLoading}
-            />
-          </div>
-        </ErrorBoundary>
-
-        <div className="list">
-          <CompletedTaskList
-            getTasks={getTasks}
-            completedList={completedList}
-            isLoading={isLoading}
-          />
-        </div>
-      </div>
+      {/* <FileUpload /></div> */}
     </div>
   );
 };
@@ -179,4 +201,5 @@ const OurFallbackComponent = ({
     </div>
   );
 };
+
 export default ProjectsPage;

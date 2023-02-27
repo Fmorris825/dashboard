@@ -2,9 +2,10 @@ import "./TasksPage.css";
 import { useEffect, createContext, useState } from "react";
 import TasksList from "./TaskPageComponents/TasksList";
 import AddTaskModal from "./TaskPageComponents/AddTaskModal";
-import CompletedTaskList from "./TaskPageComponents/CompletedTaskList";
 import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
 import ProjectDropdownMenu from "./TaskPageComponents/ProjectDropdownMenu";
+import UndoTask from "./TaskPageComponents/UndoTask";
+import CompleteTaskButton from "./TaskPageComponents/CompleteTaskButton";
 
 export const TaskContext = createContext();
 
@@ -60,12 +61,17 @@ const TasksPage = ({
       </div>
       <div className="taskListContainer">
         <div className="list">
-          <TasksList getTasks={getTasks} toDoList={toDoList} />
+          <TasksList
+            getTasks={getTasks}
+            list={toDoList}
+            multiComponent={CompleteTaskButton}
+          />
         </div>
         <div className="list">
-          <CompletedTaskList
+          <TasksList
             getTasks={getTasks}
-            completedList={completedList}
+            list={completedList}
+            multiComponent={UndoTask}
           />
         </div>
       </div>
