@@ -2,6 +2,8 @@ import { Button, Modal } from "antd";
 import { useState, useEffect } from "react";
 import { Form, Input } from "antd";
 import { addDoc, getDocs } from "firebase/firestore";
+import { message } from "antd";
+import ImportanceSelectDropdown from "./ImportanceSelectDropdown";
 
 const AddTaskModal = ({
   tasksCollectionRef,
@@ -14,6 +16,7 @@ const AddTaskModal = ({
   const [date, setDate] = useState("");
   const [timestamp, setTimestamp] = useState(0);
   const [description, setDescriiption] = useState("");
+  const [importanceLevel, setImportanceLevel] = useState(0);
 
   const createTask = async () => {
     await addDoc(tasksCollectionRef, {
@@ -23,9 +26,10 @@ const AddTaskModal = ({
       date: date,
       complete: false,
       project_Id: selectedProject.id,
+      importance_level: importanceLevel,
     });
     getTasks();
-    console.log("task Created");
+    added();
   };
 
   useEffect(() => {
@@ -48,17 +52,28 @@ const AddTaskModal = ({
     console.log("Success");
     setDescriiption("");
     setTask("");
+    setImportanceLevel(0);
     setModal(false);
   }
   function handleCancel() {
     setDescriiption("");
     setTask("");
+    setImportanceLevel(0);
     console.log("Cancel");
     setModal(false);
   }
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const added = () => {
+    messageApi.open({
+      type: "success",
+      content: "Task Created",
+    });
+  };
+
   return (
     <>
+      {contextHolder}
       <button onClick={() => setModal(true)}>Add New Task</button>
       <Modal
         title="New Task"
@@ -81,13 +96,20 @@ const AddTaskModal = ({
           task={task}
           description={description}
           timestamp={timestamp}
+          setImportanceLevel={setImportanceLevel}
         />
       </Modal>
     </>
   );
 };
 
-function AddTaskForm({ setDescriiption, setTask, task, description }) {
+function AddTaskForm({
+  setDescriiption,
+  setTask,
+  task,
+  description,
+  setImportanceLevel,
+}) {
   return (
     <Form
       name="basic"
@@ -112,6 +134,7 @@ function AddTaskForm({ setDescriiption, setTask, task, description }) {
         }}
         value={description}
       />
+      <ImportanceSelectDropdown setImportanceLevel={setImportanceLevel} />
     </Form>
   );
 }
