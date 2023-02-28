@@ -30,7 +30,11 @@ const CompleteTaskButton = ({ selectedTask, getTasks }) => {
         }}
       >
         <CheckCircleTwoTone
-          style={{ color: "#FF8A8A", fontSize: "16px" }}
+          style={{
+            color: "#FF8A8A",
+            fontSize: "16px",
+            filter: "drop-shadow(0 0 0.1rem black)",
+          }}
           twoToneColor="#00FF00"
         />
       </button>{" "}

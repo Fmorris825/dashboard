@@ -26,7 +26,13 @@ const UndoTask = ({ selectedTask, getTasks }) => {
           Undo(selectedTask.id);
         }}
       >
-        <UndoOutlined style={{ color: "#0000FF", fontSize: "16px" }} />
+        <UndoOutlined
+          style={{
+            color: "#0000FF",
+            fontSize: "16px",
+            filter: "drop-shadow(0 0 0.1rem black)",
+          }}
+        />
       </button>{" "}
     </>
   );

@@ -12,13 +12,19 @@ import thunderstorms from "../../../WeatherIcons/Thunderstorms.png";
 import clear from "../../../WeatherIcons/Clear.png";
 import windy from "../../../WeatherIcons/Windy.png";
 
+import WeatherIconSelectFunction from "./WeatherIconSelectFunction";
+
 import Header from "../../../components/Header";
 import LoadingTile from "../DashBoardPageComponents/LoadingTile";
+import { useState } from "react";
 
 const { Meta } = Card;
 
-const TodaysWeather = ({ yahooWeather }) => {
+const iconFilter = WeatherIconSelectFunction.iconFilter;
+
+const TodaysWeather = ({ yahooWeather, iconFilter }) => {
   const weather = yahooWeather.current_observation;
+
   let icon = false;
   if (weather.condition.text === "Cloudy") {
     icon = cloudy;

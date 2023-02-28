@@ -31,7 +31,11 @@ const DeleteTaskButton = ({ task, getTasks }) => {
         }}
       >
         <CloseCircleTwoTone
-          style={{ color: "#FF8A8A", fontSize: "15px" }}
+          style={{
+            color: "#FF8A8A",
+            fontSize: "15px",
+            filter: "drop-shadow(0 0 0.1rem black)",
+          }}
           twoToneColor="#FF0000"
         />
       </button>{" "}
