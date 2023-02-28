@@ -30,7 +30,7 @@ const DashBoardPage = ({
       <GreetingHeader />
       <WeatherModule yahooWeather={yahooWeather} />
       <Row className="moduleRow">
-        <ProgressModule roundCompleted={roundCompleted} toDo={toDo} />
+        <ProgressModule list={roundCompleted} toDo={toDo} />
         <NewsModule news={news} />
       </Row>
     </div>

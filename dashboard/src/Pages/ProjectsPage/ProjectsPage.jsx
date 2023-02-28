@@ -1,6 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import ProjectDropdownMenu from "../TasksPage/TaskPageComponents/ProjectDropdownMenu";
 import TasksList from "../TasksPage/TaskPageComponents/TasksList";
+import { Row } from "antd";
 
 import AddTaskModal from "../TasksPage/TaskPageComponents/AddTaskModal";
 import FileUpload from "./ProjectsPageComponents/FileUpload";
@@ -25,6 +26,7 @@ import LoadingTile from "../DashBoardPage/DashBoardPageComponents/LoadingTile";
 import { set } from "firebase/database";
 import { async } from "@firebase/util";
 import UndoTask from "../TasksPage/TaskPageComponents/UndoTask";
+import ProgressModule from "../DashBoardPage/ProgressComponents/ProgressModule";
 
 const ProjectsPage = ({
   projects,
@@ -38,6 +40,9 @@ const ProjectsPage = ({
   const [projectTaskList, setProjectTaskList] = useState([]);
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
+  const completedPercentage =
+    (completedList.length / projectTaskList.length) * 100;
+  const roundCompleted = completedPercentage.toFixed(0);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -116,20 +121,20 @@ const ProjectsPage = ({
     setSelectedProject(event);
   };
 
-  console.log(
-    selectedProject,
-    projectTaskList,
-    toDoList,
-    completedList,
-    isLoading
-  );
+  console.log(completedList.length / tasks.length);
   return selectedProject ? (
     <div>
       <ProjectDropdownMenu items={items} onClick={onClick} />
 
       <Header headerText={`Progress for ${selectedProject.name} Project`} />
-      <img className="projectThumbnail" src={selectedProject.thumbnail_Url} />
-      <div>
+      <Row className="projectsRow">
+        <img
+          className="projectThumbnail Container"
+          src={selectedProject.thumbnail_Url}
+        />
+        <ProgressModule list={roundCompleted} />
+      </Row>
+      <div className="Container">
         <AddTaskModal
           tasksCollectionRef={tasksCollectionRef}
           getTasks={getTasks}

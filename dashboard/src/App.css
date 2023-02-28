@@ -39,7 +39,8 @@ h3 {
 button {
   border: none;
   color: royalblue;
-  background-color: white;
+  background-color: inherit;
+  margin: 5px;
 }
 
 button:hover {

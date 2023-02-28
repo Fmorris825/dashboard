@@ -50,7 +50,7 @@ const TasksPage = ({
   // console.log(projectTaskList);
   console.log(isLoading);
   return (
-    <div>
+    <div className="Container">
       <div>{/* <ProjectDropdownMenu items={items} onClick={onClick} /> */}</div>
       <div>
         <AddTaskModal
