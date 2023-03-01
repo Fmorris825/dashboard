@@ -43,6 +43,7 @@ import LoadingTile from "./Pages/DashBoardPage/DashBoardPageComponents/LoadingTi
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import ContactPage from "./Pages/ContactPage/ContactPage";
+import ResourcePage from "./Pages/ResourcesPage/ResourcePage";
 
 // antd Component Layout //
 const { Header, Content, Sider } = Layout;
@@ -333,10 +334,7 @@ function App() {
                     ></Route>
                     <Route path="/planning" element={<PlanningPage />}></Route>
                     <Route path="/backlog" element={<div>Backlog</div>}></Route>
-                    <Route
-                      path="/resources"
-                      element={<div>Resources</div>}
-                    ></Route>
+                    <Route path="/resources" element={<ResourcePage />}></Route>
                     <Route path="/links" element={<ContactPage />}></Route>
                   </Routes>
                 </div>
