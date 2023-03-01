@@ -42,6 +42,7 @@ import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
 import LoadingTile from "./Pages/DashBoardPage/DashBoardPageComponents/LoadingTile";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import ContactPage from "./Pages/ContactPage/ContactPage";
 
 // antd Component Layout //
 const { Header, Content, Sider } = Layout;
@@ -69,7 +70,7 @@ const navItems = [
     getItem("Projects", "/projects", <FireOutlined />),
     getItem("Backlog", "/backlog", <FolderOpenOutlined />),
   ]),
-  getItem("Fred's Links", "/links", <UserOutlined />),
+  getItem("Contact Fred", "/links", <UserOutlined />),
   getItem("Resources", "/resources", <DatabaseOutlined />),
 ];
 
@@ -336,10 +337,7 @@ function App() {
                       path="/resources"
                       element={<div>Resources</div>}
                     ></Route>
-                    <Route
-                      path="/links"
-                      element={<div>Fred's Links</div>}
-                    ></Route>
+                    <Route path="/links" element={<ContactPage />}></Route>
                   </Routes>
                 </div>
               </Content>
