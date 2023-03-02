@@ -17,6 +17,10 @@
   display: flex;
 }
 
+a {
+  text-decoration: underline;
+}
+
 h1 {
   font-family: "Lilita One", sans-serif;
   font-size: 45px;
