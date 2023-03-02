@@ -10,7 +10,7 @@ const { Meta } = Card;
 const ContactPage = () => {
   return (
     <div>
-      <Row className="contactContainer">
+      <Row className="contactContainer Container">
         <Card
           hoverable
           style={{
