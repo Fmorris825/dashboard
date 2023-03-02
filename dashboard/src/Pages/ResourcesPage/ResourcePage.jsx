@@ -1,21 +1,27 @@
-import { Card } from "antd";
-const gridStyle = {
-  width: "25%",
-  textAlign: "center",
-};
+import ResourceList from "./ResourceList";
+import ResourcData from "../../ResourcData";
+import "./ResourcePage.css";
+
 const ResourcePage = () => {
   return (
-    <Card title="Card Title">
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-      <Card.Grid hoverable={false} style={gridStyle}>
-        Content
-      </Card.Grid>
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-      <Card.Grid style={gridStyle}>Content</Card.Grid>
-    </Card>
+    <div className="ResourceListContainer">
+      <ResourceList
+        listArray={ResourcData.generalResources}
+        listTitle="General Resources"
+      />
+      <ResourceList
+        listArray={ResourcData.librariesAndFrameworks}
+        listTitle="Libraries & Frameworks"
+      />
+      <ResourceList
+        listArray={ResourcData.stylingResources}
+        listTitle="Styling Resources"
+      />
+      <ResourceList
+        listArray={ResourcData.learningResources}
+        listTitle="Learning Resources"
+      />
+    </div>
   );
 };
 
