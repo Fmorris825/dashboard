@@ -205,7 +205,6 @@ function App() {
     });
     return setDoList(toDoTasks);
   }
-
   // Toggle Dark Mode //
   const onChange = (checked) => {
     setToggleDisplayMode(!ToggleDisplayMode);
@@ -217,7 +216,7 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-  console.log(news);
+  console.log(tasks, completedList, toDoList);
   return (
     <div className={appDisplay}>
       <ConfigProvider

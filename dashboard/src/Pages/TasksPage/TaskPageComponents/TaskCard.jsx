@@ -21,7 +21,6 @@ const TaskCard = ({ task, multiComponent, getTasks }) => {
     level = "Low";
   } else importance = null;
 
-  console.log(importance);
   return (
     <List.Item
       actions={[

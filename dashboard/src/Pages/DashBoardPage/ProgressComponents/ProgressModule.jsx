@@ -3,8 +3,14 @@ import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 import Header from "../../../components/Header";
 import StatisticCard from "./StatisticCard";
+import SubHeader from "../../../components/SubHeader";
 
-const ProgressModule = ({ list, completedListLength, toDoListLength }) => {
+const ProgressModule = ({
+  list,
+  completedListLength,
+  toDoListLength,
+  tasksLength,
+}) => {
   return (
     <div className="Container progressContainer">
       <Header headerText="Task Progress" />
@@ -15,6 +21,10 @@ const ProgressModule = ({ list, completedListLength, toDoListLength }) => {
           "100%": "#87d068",
         }}
       />
+      <SubHeader text="Task Breakdown" />
+      <div className="statRow">
+        <StatisticCard title="Total Tasks" value={tasksLength} color="0000ff" />
+      </div>
 
       <Row gutter={16}>
         <StatisticCard
@@ -29,34 +39,6 @@ const ProgressModule = ({ list, completedListLength, toDoListLength }) => {
           color="#3f8600"
           prefix={<CheckOutlined />}
         />
-        {/* <Col span={12}>
-          <Card bordered={false}>
-            <Statistic
-              title="Task To Do"
-              value={9.3}
-              precision={2}
-              valueStyle={{
-                color: "#cf1322",
-              }}
-              prefix={<ArrowDownOutlined />}
-              suffix="%"
-            />
-          </Card>
-        </Col>
-        <Col span={12}>
-          <Card bordered={false}>
-            <Statistic
-              title="Task Completed"
-              value={11.28}
-              precision={2}
-              valueStyle={{
-                color: "#3f8600",
-              }}
-              prefix={<ArrowUpOutlined />}
-              suffix="%"
-            />
-          </Card>
-        </Col> */}
       </Row>
     </div>
   );

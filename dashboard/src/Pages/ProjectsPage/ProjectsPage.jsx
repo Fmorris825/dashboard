@@ -27,6 +27,7 @@ import { set } from "firebase/database";
 import { async } from "@firebase/util";
 import UndoTask from "../TasksPage/TaskPageComponents/UndoTask";
 import ProgressModule from "../DashBoardPage/ProgressComponents/ProgressModule";
+import SubHeader from "../../components/SubHeader";
 
 const ProjectsPage = ({
   projects,
@@ -45,6 +46,7 @@ const ProjectsPage = ({
   const roundCompleted = completedPercentage.toFixed(0);
   const completedListLength = completedList.length;
   const toDoListLength = toDoList.length;
+  const tasksLength = projectTaskList.length;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -128,7 +130,7 @@ const ProjectsPage = ({
     <div>
       <ProjectDropdownMenu items={items} onClick={onClick} />
 
-      <Header headerText={`Progress for ${selectedProject.name} Project`} />
+      <Header headerText={`${selectedProject.name} Project`} />
       <Row className="projectsRow">
         <img
           className="projectThumbnail Container"
@@ -138,17 +140,24 @@ const ProjectsPage = ({
           list={roundCompleted}
           completedListLength={completedListLength}
           toDoListLength={toDoListLength}
+          tasksLength={tasksLength}
         />
       </Row>
+
       <div className="Container">
+        {" "}
+        <SubHeader text="Task Workspace" />
         <AddTaskModal
           tasksCollectionRef={tasksCollectionRef}
           getTasks={getTasks}
           selectedProject={selectedProject}
-        />
+        />{" "}
         <div className="taskListContainer">
+          {" "}
           <ErrorBoundary FallbackComponent={OurFallbackComponent}>
             <div className="list">
+              {" "}
+              <SubHeader text="Tasks to be done" />
               <TasksList
                 getTasks={getTasks}
                 list={toDoList}
@@ -159,6 +168,7 @@ const ProjectsPage = ({
           </ErrorBoundary>
           <ErrorBoundary FallbackComponent={OurFallbackComponent}>
             <div className="list">
+              <SubHeader text="Completed Task" />
               <TasksList
                 getTasks={getTasks}
                 list={completedList}

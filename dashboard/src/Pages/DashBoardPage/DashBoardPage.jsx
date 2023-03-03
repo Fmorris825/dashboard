@@ -18,6 +18,7 @@ const DashBoardPage = ({
   const roundCompleted = completedPercentage.toFixed(0);
   const completedListLength = completedList.length;
   const toDoListLength = toDoList.length;
+  const tasksListLength = tasks.length;
 
   if (!yahooWeather || !news) {
     return (
@@ -36,7 +37,9 @@ const DashBoardPage = ({
           completedList={completedList}
           completedListLength={completedListLength}
           toDoListLength={toDoListLength}
+          tasksLength={tasksListLength}
         />
+
         <NewsModule news={news} />
       </Row>
     </div>
