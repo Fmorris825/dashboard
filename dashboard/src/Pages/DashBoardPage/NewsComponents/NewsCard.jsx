@@ -4,9 +4,9 @@ const NewsCard = ({ article }) => {
     <div className="carouselSlide">
       <Header headerText="Daily News" />
       <h3 className="slideText">{article.title}</h3>
-      <a href={article.url} target="_blank" className="newsImageContainer">
+      {/* <a href={article.url} target="_blank" className="newsImageContainer">
         <img className="newsImage" src={article.urlToImage} alt="Article Img" />
-      </a>
+      </a> */}
     </div>
   );
 };

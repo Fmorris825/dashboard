@@ -9,3 +9,21 @@
 .taskListContainer {
   display: flex;
 }
+
+.Critical {
+  color: red;
+}
+
+.Moderate {
+  color: orange;
+}
+
+.Low {
+  color: yellow;
+}
+
+.importance {
+  text-shadow: 1px 1px grey;
+  margin-left: 2px;
+  font-size: 14px;
+}

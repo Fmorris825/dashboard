@@ -16,7 +16,8 @@ const DashBoardPage = ({
 }) => {
   const completedPercentage = (completedList.length / tasks.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
-  const [toDo, setToDo] = useState(toDoList.length);
+  const completedListLength = completedList.length;
+  const toDoListLength = toDoList.length;
 
   if (!yahooWeather || !news) {
     return (
@@ -30,7 +31,12 @@ const DashBoardPage = ({
       <GreetingHeader />
       <WeatherModule yahooWeather={yahooWeather} />
       <Row className="moduleRow">
-        <ProgressModule list={roundCompleted} toDo={toDo} />
+        <ProgressModule
+          list={roundCompleted}
+          completedList={completedList}
+          completedListLength={completedListLength}
+          toDoListLength={toDoListLength}
+        />
         <NewsModule news={news} />
       </Row>
     </div>

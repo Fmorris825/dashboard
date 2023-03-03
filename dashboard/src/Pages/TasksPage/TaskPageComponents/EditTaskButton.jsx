@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Form, Input, Modal } from "antd";
 import { db } from "../../../config";
 import { updateDoc, doc } from "firebase/firestore";
+import ImportanceSelectDropdown from "./ImportanceSelectDropdown";
 
 const EditTaskButton = ({ selectedTask, getTasks }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [task, setTask] = useState("");
   const [description, setDescriiption] = useState("");
+  const [importanceLevel, setImportanceLevel] = useState(0);
 
   const showModal = () => {
     console.log(selectedTask);
@@ -15,7 +17,11 @@ const EditTaskButton = ({ selectedTask, getTasks }) => {
 
   const updateTask = async (id) => {
     const taskDoc = doc(db, "Tasks", id);
-    const newFields = { task: task, description: description };
+    const newFields = {
+      task: task,
+      description: description,
+      importance_level: importanceLevel,
+    };
     await updateDoc(taskDoc, newFields);
     getTasks();
   };
@@ -26,12 +32,14 @@ const EditTaskButton = ({ selectedTask, getTasks }) => {
     console.log("Success");
     setDescriiption("");
     setTask("");
+    setImportanceLevel(0);
     setIsModalOpen(false);
   }
 
   function handleCancel() {
     setDescriiption("");
     setTask("");
+    setImportanceLevel(0);
     console.log("Cancel");
     setIsModalOpen(false);
   }
@@ -74,6 +82,7 @@ const EditTaskButton = ({ selectedTask, getTasks }) => {
             }}
             value={description}
           />
+          <ImportanceSelectDropdown setImportanceLevel={setImportanceLevel} />
         </Form>
       </Modal>
     </>

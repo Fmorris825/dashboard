@@ -43,6 +43,8 @@ const ProjectsPage = ({
   const completedPercentage =
     (completedList.length / projectTaskList.length) * 100;
   const roundCompleted = completedPercentage.toFixed(0);
+  const completedListLength = completedList.length;
+  const toDoListLength = toDoList.length;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -132,7 +134,11 @@ const ProjectsPage = ({
           className="projectThumbnail Container"
           src={selectedProject.thumbnail_Url}
         />
-        <ProgressModule list={roundCompleted} />
+        <ProgressModule
+          list={roundCompleted}
+          completedListLength={completedListLength}
+          toDoListLength={toDoListLength}
+        />
       </Row>
       <div className="Container">
         <AddTaskModal

@@ -9,12 +9,16 @@ const TaskCard = ({ task, multiComponent, getTasks }) => {
   const MultiComponent = multiComponent;
 
   let importance = "";
+  let level = "";
   if (task.importance_level === 1) {
     importance = "red";
+    level = "Critical";
   } else if (task.importance_level === 2) {
     importance = "orange";
+    level = "Moderate";
   } else if (task.importance_level === 3) {
     importance = "yellow";
+    level = "Low";
   } else importance = null;
 
   console.log(importance);
@@ -33,14 +37,16 @@ const TaskCard = ({ task, multiComponent, getTasks }) => {
             <div>
               <h5>
                 {task.task}
-                <FireFilled
+                <span className={level + " importance"}>{level}</span>
+
+                {/* <FireFilled
                   style={{
                     color: importance,
                     fontSize: "16px",
                     filter: "drop-shadow(0 0 0.1rem black)",
                     marginLeft: "5px",
                   }}
-                />
+                /> */}
               </h5>
             </div>
           }

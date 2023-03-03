@@ -217,6 +217,7 @@ function App() {
       setAppDisplay("inactive");
     }
   };
+  console.log(news);
   return (
     <div className={appDisplay}>
       <ConfigProvider

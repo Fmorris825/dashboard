@@ -1,7 +1,10 @@
-import { Progress, Space } from "antd";
-import Header from "../../../components/Header";
+import { Progress, Space, Card, Col, Row, Statistic } from "antd";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
-const ProgressModule = ({ list }) => {
+import Header from "../../../components/Header";
+import StatisticCard from "./StatisticCard";
+
+const ProgressModule = ({ list, completedListLength, toDoListLength }) => {
   return (
     <div className="Container progressContainer">
       <Header headerText="Task Progress" />
@@ -12,32 +15,49 @@ const ProgressModule = ({ list }) => {
           "100%": "#87d068",
         }}
       />
-      <Progress
-        percent={99.9}
-        status="active"
-        strokeColor={{
-          from: "#108ee9",
-          to: "#87d068",
-        }}
-      />
-      <Space wrap>
-        <Progress
-          type="circle"
-          percent={90}
-          strokeColor={{
-            "0%": "#108ee9",
-            "100%": "#87d068",
-          }}
+
+      <Row gutter={16}>
+        <StatisticCard
+          title="Task To Do"
+          value={toDoListLength}
+          color="#cf1322"
+          // prefix={<CloseOutlined />}
         />
-        <Progress
-          type="circle"
-          percent={100}
-          strokeColor={{
-            "0%": "#108ee9",
-            "100%": "#87d068",
-          }}
+        <StatisticCard
+          title="Task Completed"
+          value={completedListLength}
+          color="#3f8600"
+          prefix={<CheckOutlined />}
         />
-      </Space>{" "}
+        {/* <Col span={12}>
+          <Card bordered={false}>
+            <Statistic
+              title="Task To Do"
+              value={9.3}
+              precision={2}
+              valueStyle={{
+                color: "#cf1322",
+              }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card bordered={false}>
+            <Statistic
+              title="Task Completed"
+              value={11.28}
+              precision={2}
+              valueStyle={{
+                color: "#3f8600",
+              }}
+              prefix={<ArrowUpOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col> */}
+      </Row>
     </div>
   );
 };

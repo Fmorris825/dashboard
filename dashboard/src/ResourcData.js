@@ -2,7 +2,8 @@ const generalResources = [
   {
     name: "Google Firebase",
     url: "https://firebase.google.com/",
-    description: "",
+    description:
+      "Firebase is an app development platform that helps you build and grow apps and games users love. Backed by Google and trusted by millions of businesses around the world.",
   },
   {
     name: "FlatIcon",
@@ -79,7 +80,7 @@ const librariesAndFrameworks = [
     name: "Material UI",
     url: "https://mui.com",
     description:
-      "MUI offers a comprehensive suite of UI tools to help you ship new features faster. Start with Material UI, our fully-loaded component library, or bring your own design system to our production-ready components.",
+      "MUI offers a comprehensive suite of UI tools to help you ship new features faster.",
   },
   {
     name: "Evergreen",
@@ -90,13 +91,12 @@ const librariesAndFrameworks = [
   {
     name: "Blueprint",
     url: "https://blueprintjs.com",
-    description: "",
+    description: "A React-based UI toolkit for the web.",
   },
   {
     name: "Bootstrap",
     url: "https://getbootstrap.com/",
-    description:
-      "Powerful, extensible, and feature-packed frontend toolkit. Build and customize with Sass, utilize prebuilt grid system and components, and bring projects to life with powerful JavaScript plugins.",
+    description: "Powerful, extensible, and feature-packed frontend toolkit.",
   },
   {
     name: "React Bootstrap",
