@@ -66,9 +66,9 @@ const items1 = ["1", "2", "3"].map((key) => ({
 const navItems = [
   getItem("HomeBase", "sub1", <MailOutlined />, [
     getItem("Dashboard", "/dashboard", <DesktopOutlined />),
-    getItem("Tasks", "/tasks", <RobotOutlined />),
-    getItem("Planning", "/planning", <CalendarOutlined />),
     getItem("Projects", "/projects", <FireOutlined />),
+    // getItem("Tasks", "/tasks", <RobotOutlined />),
+    // getItem("Planning", "/planning", <CalendarOutlined />),
     getItem("Backlog", "/backlog", <FolderOpenOutlined />),
   ]),
   getItem("Contact Fred", "/links", <UserOutlined />),

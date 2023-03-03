@@ -184,29 +184,31 @@ const ProjectsPage = ({
     <div>
       {" "}
       <ProjectDropdownMenu items={items} onClick={onClick} />
-      {/* <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        {projects.map((project) => {
-          return (
-            <SwiperSlide>
-              <img
-                className="slideImg"
-                src={project.thumbnail_Url}
-                value={project}
-                onClick={(event) => setSelectedProject(event.target.value)}
-              />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper> */}
-      {/* <FileUpload /></div> */}
+      <div className="Container">
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          {projects.map((project) => {
+            return (
+              <SwiperSlide>
+                <img
+                  className="slideImg"
+                  src={project.thumbnail_Url}
+                  value={project}
+                  onClick={(event) => setSelectedProject(event.target.value)}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+        {/* <FileUpload /></div> */}
+      </div>
     </div>
   );
 };
