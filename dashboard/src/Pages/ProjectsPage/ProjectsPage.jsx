@@ -31,11 +31,13 @@ import SubHeader from "../../components/SubHeader";
 
 const ProjectsPage = ({
   projects,
-  getTasks,
+  setTasks,
   tasks,
   tasksCollectionRef,
   setProjects,
   projectsCollectionRef,
+  filterCompleted,
+  filteredToDo,
 }) => {
   const [selectedProject, setSelectedProject] = useState(false);
   const [projectTaskList, setProjectTaskList] = useState([]);
@@ -125,7 +127,6 @@ const ProjectsPage = ({
     setSelectedProject(event);
   };
 
-  console.log(completedList.length / tasks.length);
   return selectedProject ? (
     <div>
       <ProjectDropdownMenu items={items} onClick={onClick} />
@@ -149,7 +150,7 @@ const ProjectsPage = ({
         <SubHeader text="Task Workspace" />
         <AddTaskModal
           tasksCollectionRef={tasksCollectionRef}
-          getTasks={getTasks}
+          setTasks={setTasks}
           selectedProject={selectedProject}
         />{" "}
         <div className="taskListContainer">
@@ -159,10 +160,12 @@ const ProjectsPage = ({
               {" "}
               <SubHeader text="Tasks to be done" />
               <TasksList
-                getTasks={getTasks}
+                setTasks={setTasks}
                 list={toDoList}
                 isLoading={isLoading}
                 multiComponent={CompleteTaskButton}
+                filterCompleted={filterCompleted}
+                filteredToDo={filteredToDo}
               />
             </div>
           </ErrorBoundary>
@@ -170,10 +173,12 @@ const ProjectsPage = ({
             <div className="list">
               <SubHeader text="Completed Task" />
               <TasksList
-                getTasks={getTasks}
+                setTasks={setTasks}
                 list={completedList}
                 isLoading={isLoading}
                 multiComponent={UndoTask}
+                filterCompleted={filterCompleted}
+                filteredToDo={filteredToDo}
               />
             </div>
           </ErrorBoundary>

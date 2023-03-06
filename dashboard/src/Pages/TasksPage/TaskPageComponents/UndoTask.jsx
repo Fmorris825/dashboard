@@ -2,8 +2,15 @@ import { UndoOutlined } from "@ant-design/icons";
 import { db } from "../../../config";
 import { updateDoc, doc } from "firebase/firestore";
 import { message } from "antd";
+import GoogleCloudService from "../../../GoogleCloudService";
 
-const UndoTask = ({ selectedTask, getTasks }) => {
+const UndoTask = ({
+  selectedTask,
+  getTasks,
+  setTasks,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const [messageApi, contextHolder] = message.useMessage();
   const undo = () => {
     message.info("Task is in 'To do' List");
@@ -13,7 +20,11 @@ const UndoTask = ({ selectedTask, getTasks }) => {
     const taskDoc = doc(db, "Tasks", id);
     const newFields = { complete: false };
     await updateDoc(taskDoc, newFields);
-    getTasks();
+    GoogleCloudService.googleFirebaseGETRequestTasks(
+      setTasks,
+      filterCompleted,
+      filteredToDo
+    );
     undo();
   };
   return (

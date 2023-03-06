@@ -6,7 +6,14 @@ import CompleteTaskButton from "./CompleteTaskButton";
 import LoadingTile from "../../DashBoardPage/DashBoardPageComponents/LoadingTile";
 import TaskCard from "./TaskCard";
 
-const TasksList = ({ list, getTasks, isLoading, multiComponent }) => {
+const TasksList = ({
+  list,
+  setTasks,
+  isLoading,
+  multiComponent,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const sorted = list.sort(function (a, b) {
     return b.timestamp.valueOf() - a.timestamp.valueOf();
   });
@@ -22,7 +29,9 @@ const TasksList = ({ list, getTasks, isLoading, multiComponent }) => {
         <TaskCard
           task={task}
           multiComponent={multiComponent}
-          getTasks={getTasks}
+          setTasks={setTasks}
+          filterCompleted={filterCompleted}
+          filteredToDo={filteredToDo}
         />
       )}
     />

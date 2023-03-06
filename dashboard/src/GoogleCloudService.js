@@ -6,21 +6,36 @@ import {
   //   doc,
   //   deleteDoc,
 } from "firebase/firestore";
+import { db } from "./config";
+
+const tasksCollectionRef = collection(db, "Tasks");
+
+const projectsCollectionRef = collection(db, "Projects");
 
 // Get All Task Request //
-const googleFirebaseGETRequest = async (
-  collectionRef,
-  setCollectionFunciton,
+const googleFirebaseGETRequestTasks = async (
+  setCollectionFunction,
   filterCompleted,
   filteredToDo
 ) => {
   try {
-    const data = await getDocs(collectionRef);
-    setCollectionFunciton(
+    const data = await getDocs(tasksCollectionRef);
+    setCollectionFunction(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
     filterCompleted();
     filteredToDo();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const googleFirebaseGETRequestProjects = async (setCollectionFunction) => {
+  try {
+    const data = await getDocs(projectsCollectionRef);
+    setCollectionFunction(
+      data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
   } catch (err) {
     console.log(err);
   }
@@ -32,4 +47,7 @@ const googleFirebaseGETRequest = async (
 //   setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 // };
 
-export default { googleFirebaseGETRequest };
+export default {
+  googleFirebaseGETRequestTasks,
+  googleFirebaseGETRequestProjects,
+};

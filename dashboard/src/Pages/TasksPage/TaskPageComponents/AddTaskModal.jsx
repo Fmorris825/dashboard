@@ -4,10 +4,11 @@ import { Form, Input } from "antd";
 import { addDoc, getDocs } from "firebase/firestore";
 import { message } from "antd";
 import ImportanceSelectDropdown from "./ImportanceSelectDropdown";
+import GoogleCloudService from "../../../GoogleCloudService";
 
 const AddTaskModal = ({
   tasksCollectionRef,
-  getTasks,
+  setTasks,
   filteredToDo,
   selectedProject,
 }) => {
@@ -28,7 +29,11 @@ const AddTaskModal = ({
       project_Id: selectedProject.id,
       importance_level: importanceLevel,
     });
-    getTasks();
+    GoogleCloudService.googleFirebaseGETRequestTasks(
+      setTasks,
+      null,
+      filteredToDo
+    );
     added();
   };
 

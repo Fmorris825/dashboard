@@ -3,8 +3,14 @@ import { message } from "antd";
 import { doc, deleteDoc } from "firebase/firestore";
 
 import { CloseCircleTwoTone } from "@ant-design/icons";
+import GoogleCloudService from "../../../GoogleCloudService";
 
-const DeleteTaskButton = ({ task, getTasks }) => {
+const DeleteTaskButton = ({
+  task,
+  setTasks,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const [messageApi, contextHolder] = message.useMessage();
   const deletion = () => {
     messageApi.open({
@@ -16,7 +22,11 @@ const DeleteTaskButton = ({ task, getTasks }) => {
   const deleteTask = async (id) => {
     const userDoc = doc(db, "Tasks", id);
     await deleteDoc(userDoc);
-    getTasks();
+    GoogleCloudService.googleFirebaseGETRequestTasks(
+      setTasks,
+      filterCompleted,
+      filteredToDo
+    );
     deletion();
   };
 

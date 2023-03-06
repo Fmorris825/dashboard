@@ -2,8 +2,14 @@ import { CheckCircleTwoTone } from "@ant-design/icons";
 import { db } from "../../../config";
 import { updateDoc, doc } from "firebase/firestore";
 import { message } from "antd";
+import GoogleCloudService from "../../../GoogleCloudService";
 
-const CompleteTaskButton = ({ selectedTask, getTasks }) => {
+const CompleteTaskButton = ({
+  selectedTask,
+  setTasks,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
     messageApi.open({
@@ -16,7 +22,11 @@ const CompleteTaskButton = ({ selectedTask, getTasks }) => {
     const taskDoc = doc(db, "Tasks", id);
     const newFields = { complete: true };
     await updateDoc(taskDoc, newFields);
-    getTasks();
+    GoogleCloudService.googleFirebaseGETRequestTasks(
+      setTasks,
+      filterCompleted,
+      filteredToDo
+    );
     success();
   };
   return (

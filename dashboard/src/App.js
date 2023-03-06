@@ -103,7 +103,7 @@ function App() {
   const [news, setNews] = useState({});
 
   useEffect(() => {
-    GoogleCloudService.googleFirebaseGETRequest(
+    GoogleCloudService.googleFirebaseGETRequestTasks(
       tasksCollectionRef,
       setTasks,
       filterCompleted,
@@ -111,12 +111,7 @@ function App() {
     );
     // filterCompleted();
     // filteredToDo();
-    GoogleCloudService.googleFirebaseGETRequest(
-      projectsCollectionRef,
-      setProjects,
-      null,
-      null
-    );
+    GoogleCloudService.googleFirebaseGETRequestProjects(setProjects);
     //News API GET Request//
     ApiService.getRequest(
       "https://yahoo-weather5.p.rapidapi.com/weather",
@@ -185,7 +180,7 @@ function App() {
       setAppDisplay("inactive");
     }
   };
-  console.log(tasks, completedList, toDoList);
+
   return (
     <div className={appDisplay}>
       <ConfigProvider
@@ -276,11 +271,13 @@ function App() {
                             projects={projects}
                             setProjects={setProjects}
                             tasks={tasks}
-                            // getTasks={getTasks}
+                            setTasks={setTasks}
                             tasksCollectionRef={tasksCollectionRef}
                             isLoading={isLoading}
                             setIsLoading={setIsLoading}
                             projectsCollectionRef={projectsCollectionRef}
+                            filterCompleted={filterCompleted}
+                            filteredToDo={filteredToDo}
                           />
                         </ErrorBoundary>
                       }

@@ -3,8 +3,14 @@ import { Form, Input, Modal } from "antd";
 import { db } from "../../../config";
 import { updateDoc, doc } from "firebase/firestore";
 import ImportanceSelectDropdown from "./ImportanceSelectDropdown";
+import GoogleCloudService from "../../../GoogleCloudService";
 
-const EditTaskButton = ({ selectedTask, getTasks }) => {
+const EditTaskButton = ({
+  selectedTask,
+  setTasks,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [task, setTask] = useState("");
   const [description, setDescriiption] = useState("");
@@ -23,7 +29,11 @@ const EditTaskButton = ({ selectedTask, getTasks }) => {
       importance_level: importanceLevel,
     };
     await updateDoc(taskDoc, newFields);
-    getTasks();
+    GoogleCloudService.googleFirebaseGETRequestTasks(
+      setTasks,
+      filterCompleted,
+      filteredToDo
+    );
   };
 
   function handleSubmit(id) {

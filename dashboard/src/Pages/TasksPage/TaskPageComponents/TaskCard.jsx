@@ -5,7 +5,13 @@ import EditTaskButton from "./EditTaskButton";
 import CompleteTaskButton from "./CompleteTaskButton";
 import { FireFilled } from "@ant-design/icons";
 
-const TaskCard = ({ task, multiComponent, getTasks }) => {
+const TaskCard = ({
+  task,
+  multiComponent,
+  setTasks,
+  filterCompleted,
+  filteredToDo,
+}) => {
   const MultiComponent = multiComponent;
 
   let importance = "";
@@ -24,9 +30,24 @@ const TaskCard = ({ task, multiComponent, getTasks }) => {
   return (
     <List.Item
       actions={[
-        <EditTaskButton selectedTask={task} getTasks={getTasks} />,
-        <DeleteTaskButton task={task} getTasks={getTasks} />,
-        <MultiComponent selectedTask={task} getTasks={getTasks} />,
+        <EditTaskButton
+          selectedTask={task}
+          setTasks={setTasks}
+          filterCompleted={filterCompleted}
+          filteredToDo={filteredToDo}
+        />,
+        <DeleteTaskButton
+          task={task}
+          setTasks={setTasks}
+          filterCompleted={filterCompleted}
+          filteredToDo={filteredToDo}
+        />,
+        <MultiComponent
+          selectedTask={task}
+          setTasks={setTasks}
+          filterCompleted={filterCompleted}
+          filteredToDo={filteredToDo}
+        />,
       ]}
     >
       <Skeleton avatar title={false} loading={task.loading}>
