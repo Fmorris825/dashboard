@@ -4,6 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import keys from "./keys";
+import ApiService from "./ApiService";
 
 // CSS Imports //
 import "antd/dist/reset.css";
@@ -45,6 +46,8 @@ import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import ContactPage from "./Pages/ContactPage/ContactPage";
 import ResourcePage from "./Pages/ResourcesPage/ResourcePage";
 
+//Import Simplifier//
+
 // antd Component Layout //
 const { Header, Content, Sider } = Layout;
 function getItem(label, key, icon, children, type) {
@@ -65,7 +68,7 @@ const items1 = ["1", "2", "3"].map((key) => ({
 
 const navItems = [
   getItem("HomeBase", "sub1", <MailOutlined />, [
-    getItem("Dashboard", "/dashboard", <DesktopOutlined />),
+    getItem("Dashboard", "/", <DesktopOutlined />),
     getItem("Projects", "/projects", <FireOutlined />),
     // getItem("Tasks", "/tasks", <RobotOutlined />),
     // getItem("Planning", "/planning", <CalendarOutlined />),
@@ -115,9 +118,25 @@ function App() {
     };
     getTasks();
     getProjects();
-    getWeather();
+    ApiService.getRequest(
+      "https://yahoo-weather5.p.rapidapi.com/weather",
+      { location: "Irving", format: "json", u: "f" },
+      {
+        "X-RapidAPI-Key": "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+        "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
+      },
+      setYahooWeather
+    );
     getNewDate();
-    getNews();
+    ApiService.getRequest(
+      "https://newsapi.org/v2/top-headlines?country=us&category=business",
+      null,
+      {
+        "x-api-key": keys.newsApiKey,
+      },
+
+      setNews
+    );
     console.log("hit");
   }, []);
 
@@ -127,28 +146,28 @@ function App() {
   }, [tasks]);
 
   // Weather API Request //
-  async function getWeather() {
-    try {
-      const response = await axios.get(
-        "https://yahoo-weather5.p.rapidapi.com/weather",
-        {
-          params: { location: "Irving", format: "json", u: "f" },
-          headers: {
-            "X-RapidAPI-Key":
-              "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
-            "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
-          },
-        }
-      );
-      setYahooWeather(response.data);
-      setIsLoading(true);
-      if (response.status === 200) {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  }
+  // async function getWeather() {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://yahoo-weather5.p.rapidapi.com/weather",
+  //       {
+  //         params: { location: "Irving", format: "json", u: "f" },
+  //         headers: {
+  //           "X-RapidAPI-Key":
+  //             "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+  //           "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
+  //         },
+  //       }
+  //     );
+  //     setYahooWeather(response.data);
+  //     setIsLoading(true);
+  //     if (response.status === 200) {
+  //       console.log(response);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response.data);
+  //   }
+  // }
   // Get Current Date Function //
   function getNewDate() {
     let today = new Date(),
@@ -162,19 +181,19 @@ function App() {
   }
 
   // News API Request //
-  async function getNews() {
-    try {
-      const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${keys.newsApiKey}`
-      );
-      setNews(response.data);
-      if (response.status === 200) {
-        console.log(response);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  }
+  // async function getNews() {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${keys.newsApiKey}`
+  //     );
+  //     setNews(response.data);
+  //     if (response.status === 200) {
+  //       console.log(response);
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response.data);
+  //   }
+  // }
 
   // Get All Task Request //
   const getTasks = async () => {
@@ -235,7 +254,7 @@ function App() {
             <Menu
               theme="dark"
               mode="horizontal"
-              defaultSelectedKeys={["1"]}
+              defaultSelectedKeys={["/"]}
               items={items1}
             />
             <Switch defaultChecked onChange={onChange} />
@@ -252,7 +271,7 @@ function App() {
                   navigate(key);
                 }}
                 mode="inline"
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={["/"]}
                 defaultOpenKeys={["sub1"]}
                 style={{
                   height: "100%",
@@ -286,9 +305,8 @@ function App() {
               >
                 <div>
                   <Routes>
-                    <Route path="/" element={<div>Dashboard</div>}></Route>
                     <Route
-                      path="/dashboard"
+                      path="/"
                       element={
                         <DashBoardPage
                           tasks={tasks}
