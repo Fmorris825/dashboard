@@ -61,12 +61,6 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
-//NavBar List
-const items1 = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
 const navItems = [
   getItem("HomeBase", "sub1", <MailOutlined />, [
     getItem("Dashboard", "/", <DesktopOutlined />),
@@ -103,14 +97,13 @@ function App() {
   const [news, setNews] = useState({});
 
   useEffect(() => {
+    //Google Firebase GET Request for Tasks//
     GoogleCloudService.googleFirebaseGETRequestTasks(
-      tasksCollectionRef,
       setTasks,
       filterCompleted,
       filteredToDo
     );
-    // filterCompleted();
-    // filteredToDo();
+    //Google Firebase GET Request for Projects//
     GoogleCloudService.googleFirebaseGETRequestProjects(setProjects);
     //News API GET Request//
     ApiService.getRequest(
@@ -133,7 +126,6 @@ function App() {
 
       setNews
     );
-    console.log("hit");
   }, []);
 
   useEffect(() => {
@@ -196,12 +188,6 @@ function App() {
         <Layout>
           <Header className="header">
             <h1 className="brand">HOMEBASE</h1>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={["/"]}
-              items={items1}
-            />
             <Switch defaultChecked onChange={onChange} />
           </Header>
           <Layout>
