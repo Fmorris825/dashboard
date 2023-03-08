@@ -1,11 +1,4 @@
-import {
-  collection,
-  getDocs,
-  //   addDoc,
-  //   updateDoc,
-  //   doc,
-  //   deleteDoc,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config";
 
 const tasksCollectionRef = collection(db, "Tasks");
