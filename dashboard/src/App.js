@@ -1,5 +1,4 @@
 // General Imports
-import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
@@ -13,23 +12,14 @@ import "./App.css";
 
 // Firebase Imports //
 import { db } from "./config";
-import {
-  collection,
-  getDocs,
-  //   addDoc,
-  //   updateDoc,
-  //   doc,
-  //   deleteDoc,
-} from "firebase/firestore";
+import { collection } from "firebase/firestore";
 
 // Icon Imports //
 import {
   MailOutlined,
   UserOutlined,
   DatabaseOutlined,
-  CalendarOutlined,
   FolderOpenOutlined,
-  RobotOutlined,
   FireOutlined,
   DesktopOutlined,
 } from "@ant-design/icons";
@@ -41,7 +31,6 @@ import { Layout, Menu, theme, Switch, ConfigProvider } from "antd";
 import TasksPage from "./Pages/TasksPage/TasksPage";
 import PlanningPage from "./Pages/PlanningPage/PlanningPage";
 import DashBoardPage from "./Pages/DashBoardPage/DashBoardPage";
-import LoadingTile from "./Pages/DashBoardPage/DashBoardPageComponents/LoadingTile";
 import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import ContactPage from "./Pages/ContactPage/ContactPage";
@@ -79,21 +68,23 @@ function App() {
   } = theme.useToken();
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
-
+  //Collection References and State varaibles for Google Firebase Data//
   const [tasks, setTasks] = useState([]);
   const tasksCollectionRef = collection(db, "Tasks");
 
   const [projects, setProjects] = useState([]);
   const projectsCollectionRef = collection(db, "Projects");
 
+  //List for filtered Task for List Varaiables//
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
-  const [yahooWeather, setYahooWeather] = useState(false);
+
   const [ToggleDisplayMode, setToggleDisplayMode] = useState(false);
   const [darkMode, setDarkMode] = useState("inactive");
   const [appDisplay, setAppDisplay] = useState("inactive");
-  const [date, setDate] = useState("");
+
+  //State Varaiables for API Request Data//
+  const [yahooWeather, setYahooWeather] = useState(false);
   const [news, setNews] = useState({});
 
   useEffect(() => {
@@ -110,13 +101,12 @@ function App() {
       "https://yahoo-weather5.p.rapidapi.com/weather",
       { location: "Irving", format: "json", u: "f" },
       {
-        "X-RapidAPI-Key": "e79d90cae2msh5521f68907c95b5p178094jsncb7add5f2fc5",
+        "X-RapidAPI-Key": keys.weatherApiKey,
         "X-RapidAPI-Host": "yahoo-weather5.p.rapidapi.com",
       },
       setYahooWeather
     );
     //Yahoo Weather API GET Request//
-    getNewDate();
     ApiService.getRequest(
       "https://newsapi.org/v2/top-headlines?country=us&category=business",
       null,
@@ -132,18 +122,6 @@ function App() {
     filterCompleted();
     filteredToDo();
   }, [tasks]);
-
-  // Get Current Date Function //
-  function getNewDate() {
-    let today = new Date(),
-      date =
-        today.getDate() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getFullYear();
-    setDate(date);
-  }
 
   // Filter Tasks List for Completed Tasks //
   function filterCompleted() {
@@ -217,15 +195,6 @@ function App() {
                 padding: "24px 24px 24px",
               }}
             >
-              {/* <Breadcrumb
-                style={{
-                  margin: "16px 0",
-                }}
-              >
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-              </Breadcrumb> */}
               <Content
                 style={{
                   padding: 24,
@@ -245,7 +214,6 @@ function App() {
                           completedList={completedList}
                           yahooWeather={yahooWeather}
                           news={news.articles}
-                          isLoading={isLoading}
                         />
                       }
                     ></Route>
@@ -259,8 +227,6 @@ function App() {
                             tasks={tasks}
                             setTasks={setTasks}
                             tasksCollectionRef={tasksCollectionRef}
-                            isLoading={isLoading}
-                            setIsLoading={setIsLoading}
                             projectsCollectionRef={projectsCollectionRef}
                             filterCompleted={filterCompleted}
                             filteredToDo={filteredToDo}
@@ -274,12 +240,10 @@ function App() {
                         <TasksPage
                           tasks={tasks}
                           tasksCollectionRef={tasksCollectionRef}
-                          // getTasks={getTasks}
                           completedList={completedList}
                           toDoList={toDoList}
                           filteredToDo={filteredToDo}
                           projects={projects}
-                          isLoading={isLoading}
                         />
                       }
                     ></Route>
