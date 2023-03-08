@@ -1,8 +1,4 @@
 import { Card, Row } from "antd";
-import LinkedIn from "./ContactPNGs/Linked.png";
-import Github from "./ContactPNGs/Github.png";
-import Portfolio from "./ContactPNGs/PortfolioThumbnail.png";
-import Resume from "./ContactPNGs/ResumeThumbnail.png";
 import "./ContactPage.css";
 import ContactData from "../../ContactData";
 
@@ -24,7 +20,7 @@ const ContactPage = () => {
               <Meta
                 title={
                   <a href={resource.href} target="_blank">
-                    Fred's LinkedIn
+                    {resource.anchorText}
                   </a>
                 }
                 description={resource.description}
