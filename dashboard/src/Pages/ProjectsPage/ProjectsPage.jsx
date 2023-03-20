@@ -28,14 +28,13 @@ import { async } from "@firebase/util";
 import UndoTask from "../TasksPage/TaskPageComponents/UndoTask";
 import ProgressModule from "../DashBoardPage/ProgressComponents/ProgressModule";
 import SubHeader from "../../components/SubHeader";
+import GoogleCloudService from "../../GoogleCloudService";
 
 const ProjectsPage = ({
   projects,
   setTasks,
   tasks,
   tasksCollectionRef,
-  setProjects,
-  projectsCollectionRef,
   filterCompleted,
   filteredToDo,
 }) => {
@@ -150,9 +149,10 @@ const ProjectsPage = ({
         {" "}
         <SubHeader text="Task Workspace" />
         <AddTaskModal
-          tasksCollectionRef={tasksCollectionRef}
-          setTasks={setTasks}
-          selectedProject={selectedProject}
+          GoogleService={GoogleCloudService.googleFirebaseGETRequestTasks}
+          collectionRef={tasksCollectionRef}
+          setterFunction={setTasks}
+          selectedProject={selectedProject.id}
         />{" "}
         <div className="taskListContainer">
           {" "}
@@ -167,6 +167,7 @@ const ProjectsPage = ({
                 multiComponent={CompleteTaskButton}
                 filterCompleted={filterCompleted}
                 filteredToDo={filteredToDo}
+                collectionRef={tasksCollectionRef}
               />
             </div>
           </ErrorBoundary>
@@ -180,6 +181,7 @@ const ProjectsPage = ({
                 multiComponent={UndoTask}
                 filterCompleted={filterCompleted}
                 filteredToDo={filteredToDo}
+                collectionRef={tasksCollectionRef}
               />
             </div>
           </ErrorBoundary>
@@ -188,9 +190,9 @@ const ProjectsPage = ({
     </div>
   ) : (
     <div>
-      {" "}
       {/* <ProjectDropdownMenu items={items} onClick={onClick} /> */}
       <div className="Container">
+        <Header headerText="Projects" />{" "}
         <Swiper
           slidesPerView={3}
           spaceBetween={30}

@@ -35,6 +35,7 @@ import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import ContactPage from "./Pages/ContactPage/ContactPage";
 import ResourcePage from "./Pages/ResourcesPage/ResourcePage";
+import Backlog from "./Pages/BacklogPage/Backlog";
 
 //Import Simplifier//
 
@@ -90,12 +91,16 @@ function App() {
   useEffect(() => {
     //Google Firebase GET Request for Tasks//
     GoogleCloudService.googleFirebaseGETRequestTasks(
+      tasksCollectionRef,
       setTasks,
       filterCompleted,
       filteredToDo
     );
     //Google Firebase GET Request for Projects//
-    GoogleCloudService.googleFirebaseGETRequestProjects(setProjects);
+    GoogleCloudService.googleFirebaseGETRequestCollection(
+      projectsCollectionRef,
+      setProjects
+    );
     //News API GET Request//
     ApiService.getRequest(
       "https://yahoo-weather5.p.rapidapi.com/weather",
@@ -248,7 +253,7 @@ function App() {
                       }
                     ></Route>
                     <Route path="/planning" element={<PlanningPage />}></Route>
-                    <Route path="/backlog" element={<div>Backlog</div>}></Route>
+                    <Route path="/backlog" element={<Backlog />}></Route>
                     <Route path="/resources" element={<ResourcePage />}></Route>
                     <Route path="/links" element={<ContactPage />}></Route>
                   </Routes>

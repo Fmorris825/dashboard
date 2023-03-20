@@ -10,6 +10,7 @@ const DeleteTaskButton = ({
   setTasks,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const deletion = () => {
@@ -23,6 +24,7 @@ const DeleteTaskButton = ({
     const userDoc = doc(db, "Tasks", id);
     await deleteDoc(userDoc);
     GoogleCloudService.googleFirebaseGETRequestTasks(
+      collectionRef,
       setTasks,
       filterCompleted,
       filteredToDo

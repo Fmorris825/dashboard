@@ -1,18 +1,15 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config";
 
-const tasksCollectionRef = collection(db, "Tasks");
-
-const projectsCollectionRef = collection(db, "Projects");
-
 // Get All Task Request //
 const googleFirebaseGETRequestTasks = async (
+  collectionRef,
   setCollectionFunction,
   filterCompleted,
   filteredToDo
 ) => {
   try {
-    const data = await getDocs(tasksCollectionRef);
+    const data = await getDocs(collectionRef);
     setCollectionFunction(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
@@ -23,9 +20,12 @@ const googleFirebaseGETRequestTasks = async (
   }
 };
 
-const googleFirebaseGETRequestProjects = async (setCollectionFunction) => {
+const googleFirebaseGETRequestCollection = async (
+  collectionRef,
+  setCollectionFunction
+) => {
   try {
-    const data = await getDocs(projectsCollectionRef);
+    const data = await getDocs(collectionRef);
     setCollectionFunction(
       data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
@@ -42,5 +42,5 @@ const googleFirebaseGETRequestProjects = async (setCollectionFunction) => {
 
 export default {
   googleFirebaseGETRequestTasks,
-  googleFirebaseGETRequestProjects,
+  googleFirebaseGETRequestCollection,
 };

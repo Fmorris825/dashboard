@@ -7,8 +7,9 @@ import ImportanceSelectDropdown from "./ImportanceSelectDropdown";
 import GoogleCloudService from "../../../GoogleCloudService";
 
 const AddTaskModal = ({
-  tasksCollectionRef,
-  setTasks,
+  GoogleService,
+  collectionRef,
+  setterFunction,
   filteredToDo,
   selectedProject,
 }) => {
@@ -20,20 +21,16 @@ const AddTaskModal = ({
   const [importanceLevel, setImportanceLevel] = useState(0);
 
   const createTask = async () => {
-    await addDoc(tasksCollectionRef, {
+    await addDoc(collectionRef, {
       task: task,
       description: description,
       timestamp: Date.now(),
       date: date,
       complete: false,
-      project_Id: selectedProject.id,
+      project_Id: selectedProject,
       importance_level: importanceLevel,
     });
-    GoogleCloudService.googleFirebaseGETRequestTasks(
-      setTasks,
-      null,
-      filteredToDo
-    );
+    GoogleService(collectionRef, setterFunction, null, filteredToDo);
     added();
   };
 
@@ -91,16 +88,10 @@ const AddTaskModal = ({
         onCancel={() => handleCancel()}
       >
         <AddTaskForm
-          tasksCollectionRef={tasksCollectionRef}
-          handleSubmit={handleSubmit}
           setTask={setTask}
-          setDate={setDate}
           setDescriiption={setDescriiption}
-          setTimestamp={setTimestamp}
-          date={date}
           task={task}
           description={description}
-          timestamp={timestamp}
           setImportanceLevel={setImportanceLevel}
         />
       </Modal>

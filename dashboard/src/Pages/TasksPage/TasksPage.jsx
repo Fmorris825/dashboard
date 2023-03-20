@@ -54,8 +54,7 @@ const TasksPage = ({
       <div>{/* <ProjectDropdownMenu items={items} onClick={onClick} /> */}</div>
       <div>
         <AddTaskModal
-          tasksCollectionRef={tasksCollectionRef}
-          getTasks={getTasks}
+          collectionRef={tasksCollectionRef}
           filteredToDo={filteredToDo}
         />
       </div>

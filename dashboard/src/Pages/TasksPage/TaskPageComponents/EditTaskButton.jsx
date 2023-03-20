@@ -10,6 +10,7 @@ const EditTaskButton = ({
   setTasks,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [task, setTask] = useState("");
@@ -30,6 +31,7 @@ const EditTaskButton = ({
     };
     await updateDoc(taskDoc, newFields);
     GoogleCloudService.googleFirebaseGETRequestTasks(
+      collectionRef,
       setTasks,
       filterCompleted,
       filteredToDo

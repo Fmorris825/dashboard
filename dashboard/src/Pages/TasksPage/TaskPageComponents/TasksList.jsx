@@ -13,6 +13,7 @@ const TasksList = ({
   multiComponent,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const sorted = list.sort(function (a, b) {
     return b.timestamp.valueOf() - a.timestamp.valueOf();
@@ -27,6 +28,7 @@ const TasksList = ({
       dataSource={list}
       renderItem={(task) => (
         <TaskCard
+          collectionRef={collectionRef}
           task={task}
           multiComponent={multiComponent}
           setTasks={setTasks}

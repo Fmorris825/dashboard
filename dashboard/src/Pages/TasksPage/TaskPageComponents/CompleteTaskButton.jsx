@@ -9,6 +9,7 @@ const CompleteTaskButton = ({
   setTasks,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
@@ -23,6 +24,7 @@ const CompleteTaskButton = ({
     const newFields = { complete: true };
     await updateDoc(taskDoc, newFields);
     GoogleCloudService.googleFirebaseGETRequestTasks(
+      collectionRef,
       setTasks,
       filterCompleted,
       filteredToDo

@@ -10,6 +10,7 @@ const UndoTask = ({
   setTasks,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const undo = () => {
@@ -21,6 +22,7 @@ const UndoTask = ({
     const newFields = { complete: false };
     await updateDoc(taskDoc, newFields);
     GoogleCloudService.googleFirebaseGETRequestTasks(
+      collectionRef,
       setTasks,
       filterCompleted,
       filteredToDo

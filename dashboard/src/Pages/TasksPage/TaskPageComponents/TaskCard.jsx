@@ -11,6 +11,7 @@ const TaskCard = ({
   setTasks,
   filterCompleted,
   filteredToDo,
+  collectionRef,
 }) => {
   const MultiComponent = multiComponent;
 
@@ -35,18 +36,21 @@ const TaskCard = ({
           setTasks={setTasks}
           filterCompleted={filterCompleted}
           filteredToDo={filteredToDo}
+          collectionRef={collectionRef}
         />,
         <DeleteTaskButton
           task={task}
           setTasks={setTasks}
           filterCompleted={filterCompleted}
           filteredToDo={filteredToDo}
+          collectionRef={collectionRef}
         />,
         <MultiComponent
           selectedTask={task}
           setTasks={setTasks}
           filterCompleted={filterCompleted}
           filteredToDo={filteredToDo}
+          collectionRef={collectionRef}
         />,
       ]}
     >
