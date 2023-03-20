@@ -34,9 +34,25 @@ const generalResources = [
     description: "Generate unique SVG design assets",
   },
   {
-    name: "",
-    url: "",
-    description: "",
+    name: "Google Fonts",
+    url: "https://fonts.google.com",
+    description: "Free to use Fonts",
+  },
+  {
+    name: "Fonts in Use",
+    url: "https://fontsinuse.com",
+    description: "An independent archive of typography.",
+  },
+  {
+    name: "Unsplash",
+    url: "https://unsplash.com",
+    description: "The internet's source for visuals.",
+  },
+  {
+    name: "Draw SQL",
+    url: "https://drawsql.app",
+    description:
+      "Design, visualize and collaborate on entity relationship diagrams for your databases",
   },
 ];
 
@@ -110,9 +126,16 @@ const librariesAndFrameworks = [
       "A modern CSS UI library based on the glassmorphism design principles that will help you quickly design and build beautiful websites and applications.",
   },
   {
-    name: "",
-    url: "",
-    description: "",
+    name: "Pure",
+    url: "https://purecss.io",
+    description:
+      "A set of small, responsive CSS modules that you can use in every web project.",
+  },
+  {
+    name: "Tailwind CSS",
+    url: "https://tailwindcss.com",
+    description:
+      "A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.",
   },
 ];
 
@@ -162,6 +185,40 @@ const stylingResources = [
 ];
 
 const learningResources = [
+  {
+    name: "Frontend Mentor",
+    url: "https://www.frontendmentor.io/",
+    description:
+      "Solve real-world HTML, CSS and JavaScript challenges whilst working to professional designs. Join 582,378 developers building projects, reviewing code, and helping each other get better.",
+  },
+  {
+    name: "100 Days of CSS",
+    url: "https://100dayscss.com/days/1/",
+    description:
+      "For 100 consecutive days, I've written HTML and CSS snippets as a creative learning process for myself.",
+  },
+  {
+    name: "dribble",
+    url: "https://dribbble.com/",
+    description:
+      "Millions of designers and agencies around the world showcase their portfolio work on Dribbble - the home to the world's best design and creative professionals.",
+  },
+  {
+    name: "CodePen",
+    url: "https://codepen.io/",
+    description:
+      "CodePen is a social development environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.",
+  },
+  {
+    name: "Daily UI",
+    url: "https://www.dailyui.co/",
+    description: "Daily UI is a series of daily Design Challenge",
+  },
+  {
+    name: "React Certification",
+    url: "https://courses.w3schools.com/browse/certifications/courses/react-certification-exam",
+    description: "W3Schools React certification exam",
+  },
   {
     name: "",
     url: "",
