@@ -37,6 +37,7 @@ const ProjectsPage = ({
   tasksCollectionRef,
   filterCompleted,
   filteredToDo,
+  testCollectionRef,
 }) => {
   const [selectedProject, setSelectedProject] = useState(false);
   const [projectTaskList, setProjectTaskList] = useState([]);
@@ -215,7 +216,7 @@ const ProjectsPage = ({
             );
           })}
         </Swiper>
-        {/* <FileUpload /></div> */}
+        <FileUpload />
       </div>
     </div>
   );

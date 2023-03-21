@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { uploadBytes } from "firebase/storage";
+import { uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../config";
 import { v4 } from "uuid";
 import { ref as storageRef } from "firebase/storage";
@@ -9,14 +9,30 @@ import { app, db } from "../../../config";
 
 const FileUpload = () => {
   const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
 
+  const imageListRef = storageRef(storage);
   const uploadImage = () => {
     if (imageUpload == null) return;
     const imageRef = storageRef(storage, imageUpload.name);
-    uploadBytes(imageRef, imageUpload).then(() => {
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url]);
+      });
       alert("Image Uploaded");
     });
   };
+
+  // useEffect(() => {
+  //   listAll(imageListRef).then((response) => {
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageList((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, []);
+  console.log(imageList);
   //   const onFileChange = async (e) => {
   //     const file = e.target.files[0];
   //     const storageRef = app.storage().ref();
@@ -57,7 +73,9 @@ const FileUpload = () => {
         }}
       />
       <button onClick={uploadImage}>Upload Image</button>
-      {/* <img src="https://firebasestorage.googleapis.com/v0/b/homebase-dashboard-b4a96.appspot.com/o/LandingPage.png?alt=media&token=81185bec-cc3e-441f-8e81-afbbe2235a2a" /> */}
+      {/* {imageList.map((url) => {
+        return <img src={url} />;
+      })} */}
     </div>
   );
 };

@@ -76,6 +76,8 @@ function App() {
   const [projects, setProjects] = useState([]);
   const projectsCollectionRef = collection(db, "Projects");
 
+  const testCollectionRef = collection(db, "Test");
+
   //List for filtered Task for List Varaiables//
   const [completedList, setCompletedList] = useState({});
   const [toDoList, setDoList] = useState({});
@@ -170,7 +172,7 @@ function App() {
       >
         <Layout>
           <Header className="header">
-            <h1 className="brand">HOMEBASE</h1>
+            <h1 className="brand">STREAMLINE</h1>
             <Switch defaultChecked onChange={onChange} />
           </Header>
           <Layout>
@@ -235,6 +237,7 @@ function App() {
                             projectsCollectionRef={projectsCollectionRef}
                             filterCompleted={filterCompleted}
                             filteredToDo={filteredToDo}
+                            testCollectionRef={testCollectionRef}
                           />
                         </ErrorBoundary>
                       }
